@@ -24,8 +24,9 @@ post = cataExp g
 {-
     where g (Left s) = [[s]]
           g (Right (s, l)) = map (s:) $ concat l
--}    
+-}
 
+--------------------AUX FUNCTIONS--------------------
 
 trim :: String -> String
 trim (' ':' ':' ':' ':r) = r
