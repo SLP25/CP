@@ -1116,12 +1116,125 @@ Valoriza-se a escrita de \emph{pouco} código que corresponda a soluções
 simples e elegantes.
 
 \subsection*{Problema 1}
+Por simplicidade, consideremos a função
+
+\begin{code}
+f' = f a b c
+\end{code} 
+
+como uma abreviatura da função original que se pretende otimizar. Consideremos, de igual modo, as seguintes funções
+
+\begin{code}
+g n = f' (n + 1)
+h n = g (n + 1)
+\end{code}
+
+Destas definições imediatamente segue que
+
+\begin{code}
+g 0 = f' 1 = 1
+g (n + 1) = h n
+h 0 = g 1 = f' 2 = 1
+h (n + 1) = g (n + 2) = f' (n + 3) = a * f' (n + 2) + b * f' (n + 1) + c * f' n = a * h n + b * g n + c * f' n
+\end{code}.
+
+Estas três funções são mutuamente recursivas. Deste modo, tem-se que
+
+\begin{eqnarray*}
+\start
+  \begin{cases}
+        |lcbr(
+          g 0 = 1
+     )(
+          g (n + 1) = h n
+     )| \\
+     |lcbr(
+          h 0 = 1
+     )(
+          h (n + 1) = a * h n + b * g n + c * f' n
+     )| \\
+     |lcbr(
+          f' 0 = 0
+     )(
+          f' (n + 1) = g n
+     )|
+  \end{cases}
+%
+\just\equiv{ k a b c ((x, y), z) = a * y + b * x + c * z }
+%
+\begin{cases}
+        |lcbr(
+          g 0 = 1
+     )(
+          g (n + 1) = p2 . p1 ((g n, h n), f' n)
+     )| \\
+     |lcbr(
+          h 0 = 1
+     )(
+          h (n + 1) = k a b c ((g n, h n), f' n)
+     )| \\
+     |lcbr(
+          f' 0 = 0
+     )(
+          f' (n + 1) = p1 . p1 ((g n, h n), f' n)
+     )|
+  \end{cases}
+%
+\just\equiv{ lei da recursividade mútua }
+%
+    | split (split g h) f' = cata (split (split (either (const 1) (p2 . p1)) (either (const 1) (k a b c))) (either (const 0) (p1 . p1))) |
+%
+\just\equiv{ lei da troca }
+%
+    | split (split g h) f' = cata (split (either (const ((1,1))) (split (p2 . p1) (k a b c))) (either (const 0) (p1 . p1))) |
+%
+\just\equiv{ lei da troca }
+%
+    | split (split g h) f' = cata (either (const (((1,1), 0))) (split (split (p2 . p1) (k a b c)) (p1 . p1))) |
+%
+\just\equiv{ definição de for }
+%
+    | split (split g h) f' = for (split (split (p2 . p1) (k a b c)) (p1 . p1)) (const (((1,1), 0))) |
+\qed
+\end{eqnarray*}
+
+Logo, conclui-se que
+
+\begin{code}
+ f a b c = p2 . for (split (split (p2 . p1) (k a b c)) (p1 . p1)) (const (((1,1), 0)))
+\end{code}
+
 Funções auxiliares pedidas:
 \begin{code}
-loop = undefined
-initial = undefined
+k a b c ((x,y), z) = a * y + b * x + c * z
+loop = (split (split (p2 . p1) (k a b c)) (p1 . p1))
+initial = (const ((1,1), 0))
 wrap = p2
 \end{code}
+
+\subsubsection*{Comparação de desempenho}
+
+Dadas estas duas implementações da mesma função, comparou-se o seu desempenho. Para isso, criou-se um \textit{Jupyter Notebook}, submitido juntamente com este relatório, que tratasse dessa mesma análise. Para medir o tempo de execução de cada função utilizou-se a biblioteca \href{https://hackage.haskell.org/package/criterion}{Criterion}; e para gerar os gráficos apresentados nas figuras \ref{fig:prob1_performance_poor} e \ref{fig:prob1_performance_good} usou-se a biblioteca \href{https://hackage.haskell.org/package/Chart}{Chart}.
+
+Os tempos calculados correspondem à média de 10 execuções de cada função para o respetivo argumento. Para os testes, usou-se $a=2, b=3, c=4$.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{cp2223t_media/fIneficiente.jpg}
+  \caption{Desempenho da implementação ineficiente de f}
+  \label{fig:prob1_performance_poor}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{cp2223t_media/fEficiente.png}
+  \caption{Desempenho da implementação eficiente de f}
+  \label{fig:prob1_performance_good}
+\end{figure}
+
+Como se pode ver pelos gráficos, a implementação ineficiente de $f$ apresenta um crescimento exponencial do tempo de execução, comparativamente à implementação eficiente, que tira proveito da recursividade mútua, que apresenta um crescimento linear.
+
+Esta melhoria de desempenho é notável, visto que torna uma função que não seria viável utilizar para valores relativamente pequenos do seu argumento, numa função capaz de processar valores muito superiores em intervalos de tempo bastante reduzidos.
 
 \subsection*{Problema 2}
 Gene de |tax|:
