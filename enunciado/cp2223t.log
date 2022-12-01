@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  1 DEC 2022 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  1 DEC 2022 20:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1589,34 +1589,34 @@ LaTeX Warning: Citation `EK06' on page 12 undefined on input line 1233.
 
 \openout6 = `cp2223t.ptb'.
 
-<cp2223t_media/fIneficiente.jpg, id=271, 1284.8pt x 722.7pt>
-File: cp2223t_media/fIneficiente.jpg Graphic file (type jpg)
-<use cp2223t_media/fIneficiente.jpg>
-Package pdftex.def Info: cp2223t_media/fIneficiente.jpg  used on input line 171
+<cp2223t_media/fIneficiente.png, id=271, 381.67593pt x 231.86626pt>
+File: cp2223t_media/fIneficiente.png Graphic file (type png)
+<use cp2223t_media/fIneficiente.png>
+Package pdftex.def Info: cp2223t_media/fIneficiente.png  used on input line 171
 2.
-(pdftex.def)             Requested size: 409.71692pt x 230.46371pt.
+(pdftex.def)             Requested size: 409.71692pt x 248.9117pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<cp2223t_media/fEficiente.png, id=272, 358.33875pt x 199.49532pt>
+<cp2223t_media/fEficiente.png, id=272, 373.395pt x 237.88875pt>
 File: cp2223t_media/fEficiente.png Graphic file (type png)
 <use cp2223t_media/fEficiente.png>
 Package pdftex.def Info: cp2223t_media/fEficiente.png  used on input line 1719.
 
-(pdftex.def)             Requested size: 409.71692pt x 228.11191pt.
+(pdftex.def)             Requested size: 409.71692pt x 261.03955pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [16]
 \openout6 = `cp2223t.ptb'.
 
+ [17 <./cp2223t_media/fIneficiente.png (PNG copy)> <./cp2223t_media/fEficiente.
+png (PNG copy)>]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
- [17 <./cp2223t_media/fIneficiente.jpg> <./cp2223t_media/fEficiente.png (PNG co
-py)>]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1636,8 +1636,8 @@ Package rerunfilecheck Info: File `cp2223t.out' has not changed.
 (rerunfilecheck)             Checksum: 198FBAC9DCE1E7BFD94A43BA0836654E;1628.
  ) 
 Here is how much of TeX's memory you used:
- 35496 strings out of 478238
- 671437 string characters out of 5850456
+ 35495 strings out of 478238
+ 671433 string characters out of 5850456
  1025520 words of memory out of 5000000
  52969 multiletter control sequences out of 15000+600000
  624456 words of font info for 194 fonts, out of 8000000 for 9000
@@ -1667,7 +1667,7 @@ pe1/urw/symbol/usyr.pfb></usr/share/texmf-dist/fonts/type1/urw/symbol/usyr.pfb>
 fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (19 pages, 893755 bytes).
+Output written on cp2223t.pdf (19 pages, 730380 bytes).
 PDF statistics:
  468 PDF objects out of 1000 (max. 8388607)
  378 compressed objects within 4 object streams
