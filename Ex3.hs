@@ -4,6 +4,8 @@ import Nat
 import Rose
 import Control.Concurrent
 
+--------------------GIVEN CODE--------------------
+
 drawSq x = picd'' [Svg.scale 0.44 (0, 0) (x >>= sq2svg)]
 sq2svg (p, l) = (color "#67AB9F" . polyg) [p, p .+ (0, l), p .+ (l, l), p .+ (l, 0)]
 await = threadDelay 1000000
@@ -33,6 +35,8 @@ constructSierp = present . carpets
 
 sierpinski :: (Square, Int) -> [Square]
 sierpinski = rose2List . squares --hyloRose gr2l gsq
+
+--------------------ANSWERS--------------------
 
 squares :: (Square, Int) -> Rose Square
 squares = anaRose gr2l

@@ -3,12 +3,15 @@ import Exp
 import List
 import Cp2223data
 
+--------------------GIVEN CODE--------------------
 
 tax :: [String] -> Exp String String
 tax = anaExp gene
 
 tudo :: [String] -> [[String]]
 tudo = post . tax
+
+--------------------ANSWERS--------------------
 
 
 gene :: [String] -> Either String (String, [[String]])
