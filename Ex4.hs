@@ -183,7 +183,7 @@ cgene:: Either () ((a,b),[(a,b)]) -> [(a,b)]
 cgene = undefined
 
 pairup :: Eq b => [b] -> [(b, b)]
-pairup = undefined
+pairup = concat . ((uncurry (zipWith zip))) . (split repeat (tail . suffixes))
 
 teamResult :: Maybe Team -> Team -> (Team, Int)
 teamResult Nothing t = (t,1)
