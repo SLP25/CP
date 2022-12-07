@@ -185,8 +185,17 @@ cgene = undefined
 pairup :: Eq b => [b] -> [(b, b)]
 pairup = undefined
 
+teamResult :: Maybe Team -> Team -> (Team, Int)
+teamResult Nothing t = (t,1)
+teamResult (Just t1) t2 | t1 == t2  = (t2, 3)
+                        | otherwise = (t2, 0)
+
+matchResultTeam :: (Match -> Maybe Team) -> (Match, Team) -> (Team, Int)
+matchResultTeam f = (uncurry teamResult). (f >< id)
+
 matchResult :: (Match -> Maybe Team) -> Match -> [(Team, Int)]
-matchResult = undefined
+matchResult f = ((uncurry (++)) . (split (resultTeam p1)  (resultTeam p2)))
+    where resultTeam pi = (singl . (matchResultTeam f) . (split id pi))
 
 glt :: [Team] -> Either Team ([Team], [Team])
 glt = undefined
@@ -195,6 +204,7 @@ glt = undefined
 
 pinitKnockoutStage :: [[Team]] -> Dist (LTree Team)
 pinitKnockoutStage = undefined
+
 
 pgroupWinners :: (Match -> Dist (Maybe Team)) -> [Match] -> Dist [Team]
 pgroupWinners = undefined   --usar pmatchResult aqui dentro
