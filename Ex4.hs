@@ -3,6 +3,8 @@ import List
 import LTree
 import RelCalc
 import Probability
+
+import NEList
 import Data.List
 
 --------------------GIVEN CODE--------------------
@@ -197,8 +199,13 @@ matchResult :: (Match -> Maybe Team) -> Match -> [(Team, Int)]
 matchResult f = ((uncurry (++)) . (split (resultTeam p1)  (resultTeam p2)))
     where resultTeam pi = (singl . (matchResultTeam f) . (split id pi))
 
+
 glt :: [Team] -> Either Team ([Team], [Team])
-glt = undefined
+glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+
+splitInHalf :: [a] -> ([a], [a])
+splitInHalf l = split ((take half) (drop half)) l
+    where half = (length l) `div` 2
 
 ---Probabilistic---
 
@@ -214,3 +221,7 @@ pmatchResult = undefined
 
 --------------------AUX FUNCTIONS--------------------
 
+toLTree :: [a] -> LTree a
+toLTree [a] = Leaf a
+toLTree (h:t) = Fork ((toLTree (take l (h:t))), (toLTree (drop l (h:t))))
+    where l = length (h:t) `div` 2
