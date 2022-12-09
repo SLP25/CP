@@ -181,19 +181,11 @@ pwinner = mbin f x >>= pknockoutStage
 
 ---Normal---
 
-cgene:: Either () ((a,b),[(a,b)]) -> [(a,b)]
-cgene = undefined
+cgene::(Eq a, Num b) => Either () ((a,b),[(a,b)]) -> [(a,b)]
+cgene = either (const [])  addPoints
 
 pairup :: Eq b => [b] -> [(b, b)]
 pairup = concat . ((uncurry (zipWith zip))) . (split repeat (tail . suffixes))
-
-teamResult :: Maybe Team -> Team -> (Team, Int)
-teamResult Nothing t = (t,1)
-teamResult (Just t1) t2 | t1 == t2  = (t2, 3)
-                        | otherwise = (t2, 0)
-
-matchResultTeam :: (Match -> Maybe Team) -> (Match, Team) -> (Team, Int)
-matchResultTeam f = (uncurry teamResult). (f >< id)
 
 matchResult :: (Match -> Maybe Team) -> Match -> [(Team, Int)]
 matchResult f = ((uncurry (++)) . (split (resultTeam p1)  (resultTeam p2)))
@@ -203,9 +195,6 @@ matchResult f = ((uncurry (++)) . (split (resultTeam p1)  (resultTeam p2)))
 glt :: [Team] -> Either Team ([Team], [Team])
 glt = (id -|- (splitInHalf . (uncurry (:)))) . out
 
-splitInHalf :: [a] -> ([a], [a])
-splitInHalf l = split ((take half) (drop half)) l
-    where half = (length l) `div` 2
 
 ---Probabilistic---
 
@@ -225,3 +214,20 @@ toLTree :: [a] -> LTree a
 toLTree [a] = Leaf a
 toLTree (h:t) = Fork ((toLTree (take l (h:t))), (toLTree (drop l (h:t))))
     where l = length (h:t) `div` 2
+
+addPoints :: (Eq a, Num b) => ((a,b), [(a,b)]) -> [(a,b)]
+addPoints (p, []) = [p]
+addPoints ((a1,b1), ((a2,b2):t)) | a1 == a2  = (a1, b1 + b2):t
+                                 | otherwise = (a2,b2):(addPoints ((a1,b1), t))
+
+splitInHalf :: [a] -> ([a], [a])
+splitInHalf l = split (take half) (drop half) l
+    where half = (length l) `div` 2
+
+teamResult :: Maybe Team -> Team -> (Team, Int)
+teamResult Nothing t = (t,1)
+teamResult (Just t1) t2 | t1 == t2  = (t2, 3)
+                        | otherwise = (t2, 0)
+
+matchResultTeam :: (Match -> Maybe Team) -> (Match, Team) -> (Team, Int)
+matchResultTeam f = (uncurry teamResult). (f >< id)
