@@ -2,7 +2,7 @@ import Cp
 import List
 import LTree
 import RelCalc
-import Probability
+import Probability hiding (cond)
 
 import NEList
 import Data.List
@@ -63,7 +63,7 @@ rankings = [
 --------general--------
 
 consolidate :: (Eq a, Num b) => [(a, b)] -> [(a, b)]
-consolidate = cataList cgene
+consolidate = cataList cgene --map (id >< sum) . collect    --TODO: perguntar ao stor sobre o collect (perde elems repetidos)
 
 mmbin :: Monad m => ((a, b) -> m c) -> (m a, m b) -> m c
 mmbin f (a, b) = do {x <- a; y <- b; f (x, y)}
@@ -181,16 +181,17 @@ pwinner = mbin f x >>= pknockoutStage
 
 ---Normal---
 
-cgene::(Eq a, Num b) => Either () ((a,b),[(a,b)]) -> [(a,b)]
-cgene = either (const [])  addPoints
+cgene :: (Eq a, Num b) => Either () ((a,b),[(a,b)]) -> [(a,b)]
+cgene = either nil (uncurry addPoints)
+    where addPoints x []                    = [x]       --TODO: hylomorfismo?
+          addPoints x@(x1,x2) (y@(y1,y2):t) | x1 == y1  = (x1, x2 + y2) : t
+                                            | otherwise = y : addPoints x t
 
 pairup :: Eq b => [b] -> [(b, b)]
 pairup = concat . ((uncurry (zipWith zip))) . (split repeat (tail . suffixes))
 
 matchResult :: (Match -> Maybe Team) -> Match -> [(Team, Int)]
-matchResult f = ((uncurry (++)) . (split (resultTeam p1)  (resultTeam p2)))
-    where resultTeam pi = (singl . (matchResultTeam f) . (split id pi))
-
+matchResult f = uncurry matchResults . split id f
 
 glt :: [Team] -> Either Team ([Team], [Team])
 glt = (id -|- (splitInHalf . (uncurry (:)))) . out
@@ -198,36 +199,30 @@ glt = (id -|- (splitInHalf . (uncurry (:)))) . out
 
 ---Probabilistic---
 
-pinitKnockoutStage :: [[Team]] -> Dist (LTree Team)
-pinitKnockoutStage = undefined
-
+pinitKnockoutStage :: [[Team]] -> Dist (LTree Team)     --TODO: perguntar ao stor se isto está certo
+pinitKnockoutStage = return . initKnockoutStage
 
 pgroupWinners :: (Match -> Dist (Maybe Team)) -> [Match] -> Dist [Team]
-pgroupWinners = undefined   --usar pmatchResult aqui dentro
+pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
 
 pmatchResult :: (Match -> Dist (Maybe Team)) -> Match -> Dist [(Team, Int)]
-pmatchResult = undefined
+pmatchResult criteria m = criteria m >>= (return . matchResults m)
 
 --------------------AUX FUNCTIONS--------------------
-
-toLTree :: [a] -> LTree a
-toLTree [a] = Leaf a
-toLTree (h:t) = Fork ((toLTree (take l (h:t))), (toLTree (drop l (h:t))))
-    where l = length (h:t) `div` 2
-
-addPoints :: (Eq a, Num b) => ((a,b), [(a,b)]) -> [(a,b)]
-addPoints (p, []) = [p]
-addPoints ((a1,b1), ((a2,b2):t)) | a1 == a2  = (a1, b1 + b2):t
-                                 | otherwise = (a2,b2):(addPoints ((a1,b1), t))
 
 splitInHalf :: [a] -> ([a], [a])
 splitInHalf l = split (take half) (drop half) l
     where half = (length l) `div` 2
 
-teamResult :: Maybe Team -> Team -> (Team, Int)
-teamResult Nothing t = (t,1)
-teamResult (Just t1) t2 | t1 == t2  = (t2, 3)
-                        | otherwise = (t2, 0)
+teamResult :: Team -> Maybe Team -> (Team, Int)
+teamResult t = maybe (t, 1) (cond (==t) (const (t, 3)) (const (t, 0)))
+--teamResult t Nothing   = (t, 1)
+--teamResult t (Just t1) | t1 == t   = (t, 3)
+--                       | otherwise = (t, 0)
 
-matchResultTeam :: (Match -> Maybe Team) -> (Match, Team) -> (Team, Int)
-matchResultTeam f = (uncurry teamResult). (f >< id)
+matchResults :: Match -> Maybe Team -> [(Team, Int)]
+matchResults = curry (cons . (tr >< singl . tr) . split (p1 >< id) (p2 >< id))
+    where tr = uncurry teamResult
+
+multiProd :: [Dist a] -> Dist [a]
+multiProd = foldr (joinWith (:)) (return [])
