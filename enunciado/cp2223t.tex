@@ -1747,15 +1747,126 @@ Função de pós-processamento:
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{squares}\mathrel{=}\lanabracket\;\!\Varid{gsq}\;\!\ranabracket_\textit{\tiny R}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{gsq}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{gsq}\mathrel{=}\conj{\Varid{middleSquare}\comp \p1}{\alt{\Varid{nil}}{\uncurry{\Varid{zip}}\comp (\Varid{sideSquares}\times\Varid{repeat})}\comp \Varid{distr}}\comp (\Varid{id}\times\Varid{outNat}){}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{rose2List}\mathrel{=}\llparenthesis\, \Varid{gr2l}\,\rrparenthesis_\textit{\tiny R}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{gr2l}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{gr2l}\mathrel{=}\Varid{concat}\comp \Varid{cons}\comp (\Varid{singl}\times\Varid{id}){}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{carpets}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{carpets}\mathrel{=}\map \;(\Varid{sierpinski}\comp \conj{\underline{\Varid{defaultSquare}}}{\Varid{id}})\;[\mskip1.5mu \mathrm{0}\mathinner{\ldotp\ldotp}\Varid{n}\mskip1.5mu]{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{present}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{present}\mathrel{=}\Varid{sequence}\comp (\map \;((\sequ \Varid{await})\comp \Varid{drawSq})){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Funções auxiliares:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{middleSquare}\mathrel{=}\conj{\uncurry{\Varid{addTup}}\comp (\Varid{id}\times\Varid{dup})}{\p2}\comp (\Varid{id}\times(\mathbin{/}\mathrm{3})){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{sideSquares}\;(\Varid{xy},\Varid{l})\mathrel{=}\map \;\conj{(\Varid{addTup}\;\Varid{xy})\comp (\Varid{scaleTup}\;\Varid{l'})}{\underline{\Varid{l'}}}\;[\mskip1.5mu (\mathrm{1},\mathrm{2}),(\mathrm{2},\mathrm{2}),(\mathrm{2},\mathrm{1}),(\mathrm{2},\mathrm{0}),(\mathrm{1},\mathrm{0}),(\mathrm{0},\mathrm{0}),(\mathrm{0},\mathrm{1}),(\mathrm{0},\mathrm{2})\mskip1.5mu]{}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}\mathbf{where}\;\Varid{l'}\mathrel{=}\Varid{l}\mathbin{/}\mathrm{3}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{addTup}\;(\Varid{a},\Varid{b})\;(\Varid{c},\Varid{d})\mathrel{=}(\Varid{a}\mathbin{+}\Varid{c},\Varid{b}\mathbin{+}\Varid{d}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{scaleTup}\;\Varid{a}\;(\Varid{b},\Varid{c})\mathrel{=}(\Varid{a}\mathbin{*}\Varid{b},\Varid{a}\mathbin{*}\Varid{c}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+\subsubsection*{\text{\ttfamily gsq}}
+
+Façamos o esquema representativo dos anamorfismos sobre Rose Trees.
+
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\Conid{Rose}\;\Conid{Square}}
+&
+    \ensuremath{\Conid{Square}} \times \ensuremath{\Conid{Rose}\;\Conid{Square}}^{*}
+           \ar[l]_-{\ensuremath{\mathbf{in}}}
+\\
+     \ensuremath{\Conid{Square}} \times \ensuremath{\Conid{Int}}
+          \ar[u]_-{\ensuremath{\lanabracket\;\!\Varid{gsq}\;\!\ranabracket_\textit{\tiny R}}}
+          \ar[r]^-{\ensuremath{\Varid{gsq}}}
+&
+     \ensuremath{\Conid{Square}} \times (\ensuremath{\Conid{Square}} \times \ensuremath{\Conid{Int}})^{*}
+          \ar[u]^{\ensuremath{\Varid{id}} \times (map (\ensuremath{\lanabracket\;\!\Varid{g}\;\!\ranabracket_\textit{\tiny R}}))}
+}
+\end{eqnarray*}
+
+Com isto, determina-se o tipo de \text{\ttfamily gsq}. O primeiro elemento do par corresponde ao quadrado a partir em subquadrados mais pequenos, e o segundo elemento é o número de partições restantes. Se este valor for 0, o quadrado deve ser preservado. 
+
+Isto motiva a utilização do funtor dos naturais. Isso justifica o primeiro elemento da composição de funções que é a função \text{\ttfamily gsq}:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}(\Varid{id}\times\Varid{outNat}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Com isto, preserva-se o quadrado, mas diminui-se o natural numa unidade, possibilitando também a utilização de um \text{\ttfamily either} para separar o caso de paragem dos restantes casos.
+
+Dado facto de a função receber um produto, está será expressa como um \text{\ttfamily split}. Expliquemos primeiro o lado direito do mesmo, responsável pela criação dos quadrados mais pequenos, que serão posteriormente processados recursivamente.
+
+Foquemo-nos, inicialmente, no caso de paragem (lado esquerdo do \text{\ttfamily either}\footnote{Foi aplicada a função \text{\ttfamily distr} antes do código aqui explicado, de forma a passar o \text{\ttfamily either} para fora do par, para facilitar a resolução. Isto apenas foi feito no lado direito do \text{\ttfamily split}, pois não era conviente para o lado esquerdo, como será explicado de seguida}). Este caso é bastante simples: deve ser retornada uma lista vazia, logo é utilizada a função \text{\ttfamily nil}.
+
+O segundo caso é bastante mais complicado, e, também por isso, mais interessante. Por um lado, quer-se calcular todos os subquadrados gerados a partir do quadrado atual: para isso usa-se a função auxiliar \text{\ttfamily sideSquares}. Por outro lado, pretende-se juntar (\text{\ttfamily zip}) essa lista com uma lista contendo o valor inteiro fornecido. Para isso, podemos aproveitar a avaliação \textit{lazy} de Haskell e a função \text{\ttfamily repeat}.
+
+Sumariando, pretende-se pegar no par quadrado / número, calcular todos os subquadrados, e, em paralelo repetir o valor inteiro, juntando no fim essas listas. Isso é expresso pela expressão
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\uncurry{\Varid{zip}}\comp (\Varid{sideSquares}\times\Varid{repeat}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+.
+
+Passemos, agora, para o lado esquerdo do \text{\ttfamily split}, que devolve o quadrado que não será mais dividido. Este é bastante simples, basta extrair o primeiro elemento do par (o quadrado), e aplicar-lhe a função auxiliar \text{\ttfamily middleSquare}, que calcular o quadrado que deve ficar \textit{no meio}. Assim sendo, o lado esquerdo corresponde a 
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}(\Varid{middleSquare}\comp \p1){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+\subsubsection*{\text{\ttfamily gr2l}}
+
+Consideremos o diagrama do catamorfismo \text{\ttfamily rose2List}:
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\Conid{Rose}\;\Conid{A}}
+           \ar[d]_-{\ensuremath{\llparenthesis\, \Varid{gr2l}\,\rrparenthesis_\textit{\tiny R}}}
+&
+    \ensuremath{\Conid{A}} \times \ensuremath{\Conid{Rose}\;\Conid{A}}^{*}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\llparenthesis\, \Varid{gr2l}\,\rrparenthesis_\textit{\tiny R}}}
+           \ar[l]_-{\ensuremath{\mathbf{in}}}
+\\
+     \ensuremath{\Conid{A}}^{*}
+&
+     \ensuremath{\Conid{A}} \times \ensuremath{\Conid{A}}^{*^{*}}
+           \ar[l]^-{\ensuremath{\Varid{gr2l}}}
+}
+\end{eqnarray*}
+
+Derivamos, deste modo, o tipo da função \text{\ttfamily gr2l} pretendida. O que se pretende é que esta função concatene toda as listas que recebe como argumento no segundo elemento do par, e que adicione o elemento que recebe como primeiro elemento do par à cabeça da lista. 
+
+A solução concebida foi a seguinte: colocar o primeiro elemento como uma lista e juntá-lo à cabeça da lista de listas recebida como segundo argumento, e, de seguida, concatenar as listas interiores para formar uma só lista. 
+
+Este último passo é efetuado trivialmente pela função \text{\ttfamily concat}. O passo anterior recorre à função \text{\ttfamily cons}, que pega num par do tipo \text{\ttfamily \char40{}a\char44{}\char91{}a\char93{}\char41{}} e devolve uma lista em que o primeiro elemento foi acrescentado à lista. Para, neste caso, conseguir aplicar essa função, é necessário que o primeiro elemento do par seja, também ele, uma lista. Para isso usa-se a função \text{\ttfamily singl} multiplicada com a identidade. 
+
+Assim sendo, a função \text{\ttfamily gr2l} é a composição de todas estas funções:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{gr2l}\mathrel{=}\Varid{concat}\comp \Varid{cons}\comp (\Varid{singl}\times\Varid{id}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 

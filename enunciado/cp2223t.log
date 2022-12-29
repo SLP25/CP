@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  1 DEC 2022 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  29 DEC 2022 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1619,11 +1619,49 @@ png (PNG copy)>]
 
 \openout6 = `cp2223t.ptb'.
 
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+ [][] 
+ []
+
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+ [][] 
+ []
+
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+ [][][][] 
+ []
+
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+ [][] 
+ []
+
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+ [][] 
+ []
+
+<xymatrix 2x2 191>
+\openout6 = `cp2223t.ptb'.
+
+ [18]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
- (./cp2223t.ind [18] [19
+ <xymatrix 2x2 191>
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+ [19] (./cp2223t.ind [20] [21
 
 
 ])
@@ -1636,41 +1674,43 @@ Package rerunfilecheck Info: File `cp2223t.out' has not changed.
 (rerunfilecheck)             Checksum: 198FBAC9DCE1E7BFD94A43BA0836654E;1628.
  ) 
 Here is how much of TeX's memory you used:
- 35495 strings out of 478238
- 671433 string characters out of 5850456
+ 35504 strings out of 478238
+ 671524 string characters out of 5850456
  1025520 words of memory out of 5000000
- 52969 multiletter control sequences out of 15000+600000
- 624456 words of font info for 194 fonts, out of 8000000 for 9000
+ 52971 multiletter control sequences out of 15000+600000
+ 625899 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,19n,131p,3294b,1411s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 pdfTeX warning (dest): name{section.3.17} has been referenced but does not exis
 t, replaced by a fixed one
 
-{/usr/share/texmf-dist/fonts/enc/dvips/fira/fir_d67aat.enc}{/usr/share/texmf-di
-st/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf-dist/fonts/enc/dvips/fira/fir_
-ugbesn.enc}</usr/share/texmf-dist/fonts/type1/public/fira/FiraSans-Bold.pfb></u
-sr/share/texmf-dist/fonts/type1/public/fira/FiraSans-Book.pfb></usr/share/texmf
--dist/fonts/type1/public/fira/FiraSans-BookItalic.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></u
-sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
-am10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-</usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb></usr/share/tex
-mf-dist/fonts/type1/public/stmaryrd/stmary7.pfb></usr/share/texmf-dist/fonts/ty
-pe1/urw/symbol/usyr.pfb></usr/share/texmf-dist/fonts/type1/urw/symbol/usyr.pfb>
-</usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/
-fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/u
-tmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr/s
-hare/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (19 pages, 730380 bytes).
+ </home/rui-oliveira02/.texlive/texmf-var/fonts/pk/ljfour/public/cm-mf-extra-bo
+ld/cmbtt10.600pk>{/usr/share/texmf-dist/fonts/enc/dvips/fira/fir_d67aat.enc}{/u
+sr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf-dist/fonts/en
+c/dvips/fira/fir_ugbesn.enc}</usr/share/texmf-dist/fonts/type1/public/fira/Fira
+Sans-Bold.pfb></usr/share/texmf-dist/fonts/type1/public/fira/FiraSans-Book.pfb>
+</usr/share/texmf-dist/fonts/type1/public/fira/FiraSans-BookItalic.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/
+msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
+b></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb></usr/share/t
+exmf-dist/fonts/type1/public/stmaryrd/stmary7.pfb></usr/share/texmf-dist/fonts/
+type1/urw/symbol/usyr.pfb></usr/share/texmf-dist/fonts/type1/urw/symbol/usyr.pf
+b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
+t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
+/share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
+Output written on cp2223t.pdf (21 pages, 743863 bytes).
 PDF statistics:
- 468 PDF objects out of 1000 (max. 8388607)
- 378 compressed objects within 4 object streams
- 84 named destinations out of 1000 (max. 500000)
+ 496 PDF objects out of 1000 (max. 8388607)
+ 396 compressed objects within 4 object streams
+ 89 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 

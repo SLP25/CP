@@ -1250,15 +1250,109 @@ post = undefined
 \begin{code}
 squares = anaRose gsq
 
-gsq = undefined
+
+gsq = (split (middleSquare . p1) ((either nil ((uncurry zip) . (sideSquares >< repeat))) . distr)) . (id >< outNat)
 
 rose2List = cataRose gr2l 
 
-gr2l = undefined
+gr2l = concat . cons . (singl >< id)
 
-carpets = undefined
+carpets = map (sierpinski . (split (const defaultSquare) id)) [0..n]
 
-present = undefined
+present = sequence . (map ((>> await) . drawSq))
+\end{code}
+
+Funções auxiliares:
+
+\begin{code}
+
+middleSquare = (split ((uncurry addTup) . (id >< dup)) p2) . (id >< (/3))
+
+sideSquares (xy, l) = map (split ((addTup xy) . (scaleTup l')) (const l')) [(1,2),(2,2),(2,1),(2,0),(1,0),(0,0),(0,1),(0,2)]
+    where l' = l / 3
+
+addTup (a,b) (c,d) = (a + c, b + d)
+
+scaleTup a (b,c) = (a * b, a * c)
+\end{code}
+
+\subsubsection*{\verb|gsq|}
+
+Façamos o esquema representativo dos anamorfismos sobre Rose Trees.
+
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Rose Square|
+&
+    |Square| \times |Rose Square|^{*}
+           \ar[l]_-{|in|}
+\\
+     |Square| \times |Int|
+          \ar[u]_-{|anaRose gsq|}
+          \ar[r]^-{|gsq|}
+&
+     |Square| \times (|Square| \times |Int|)^{*}
+          \ar[u]^{|id| \times (map (|anaRose g|))}
+}
+\end{eqnarray*}
+
+Com isto, determina-se o tipo de \verb|gsq|. O primeiro elemento do par corresponde ao quadrado a partir em subquadrados mais pequenos, e o segundo elemento é o número de partições restantes. Se este valor for 0, o quadrado deve ser preservado. 
+
+Isto motiva a utilização do funtor dos naturais. Isso justifica o primeiro elemento da composição de funções que é a função \verb|gsq|:
+
+\begin{code}
+(id >< outNat)
+\end{code}
+
+Com isto, preserva-se o quadrado, mas diminui-se o natural numa unidade, possibilitando também a utilização de um \verb|either| para separar o caso de paragem dos restantes casos.
+
+Dado facto de a função receber um produto, está será expressa como um \verb|split|. Expliquemos primeiro o lado direito do mesmo, responsável pela criação dos quadrados mais pequenos, que serão posteriormente processados recursivamente.
+
+Foquemo-nos, inicialmente, no caso de paragem (lado esquerdo do \verb|either|\footnote{Foi aplicada a função \verb|distr| antes do código aqui explicado, de forma a passar o \verb|either| para fora do par, para facilitar a resolução. Isto apenas foi feito no lado direito do \verb|split|, pois não era conviente para o lado esquerdo, como será explicado de seguida}). Este caso é bastante simples: deve ser retornada uma lista vazia, logo é utilizada a função \verb|nil|.
+
+O segundo caso é bastante mais complicado, e, também por isso, mais interessante. Por um lado, quer-se calcular todos os subquadrados gerados a partir do quadrado atual: para isso usa-se a função auxiliar \verb|sideSquares|. Por outro lado, pretende-se juntar (\verb|zip|) essa lista com uma lista contendo o valor inteiro fornecido. Para isso, podemos aproveitar a avaliação \textit{lazy} de Haskell e a função \verb|repeat|.
+
+Sumariando, pretende-se pegar no par quadrado / número, calcular todos os subquadrados, e, em paralelo repetir o valor inteiro, juntando no fim essas listas. Isso é expresso pela expressão
+
+\begin{code}
+(uncurry zip) . (sideSquares >< repeat)
+\end{code}.
+
+Passemos, agora, para o lado esquerdo do \verb|split|, que devolve o quadrado que não será mais dividido. Este é bastante simples, basta extrair o primeiro elemento do par (o quadrado), e aplicar-lhe a função auxiliar \verb|middleSquare|, que calcular o quadrado que deve ficar \textit{no meio}. Assim sendo, o lado esquerdo corresponde a 
+
+\begin{code}
+(middleSquare . p1)
+\end{code}
+
+\subsubsection*{\verb|gr2l|}
+
+Consideremos o diagrama do catamorfismo \verb|rose2List|:
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Rose A|
+           \ar[d]_-{|cataRose gr2l|}
+&
+    |A| \times |Rose A|^{*}
+           \ar[d]^{|id + (cataRose gr2l)|}
+           \ar[l]_-{|in|}
+\\
+     |A|^{*}
+&
+     |A| \times |A|^{*^{*}}
+           \ar[l]^-{|gr2l|}
+}
+\end{eqnarray*}
+
+Derivamos, deste modo, o tipo da função \verb|gr2l| pretendida. O que se pretende é que esta função concatene toda as listas que recebe como argumento no segundo elemento do par, e que adicione o elemento que recebe como primeiro elemento do par à cabeça da lista. 
+
+A solução concebida foi a seguinte: colocar o primeiro elemento como uma lista e juntá-lo à cabeça da lista de listas recebida como segundo argumento, e, de seguida, concatenar as listas interiores para formar uma só lista. 
+
+Este último passo é efetuado trivialmente pela função \verb|concat|. O passo anterior recorre à função \verb|cons|, que pega num par do tipo \verb|(a,[a])| e devolve uma lista em que o primeiro elemento foi acrescentado à lista. Para, neste caso, conseguir aplicar essa função, é necessário que o primeiro elemento do par seja, também ele, uma lista. Para isso usa-se a função \verb|singl| multiplicada com a identidade. 
+
+Assim sendo, a função \verb|gr2l| é a composição de todas estas funções:
+
+\begin{code}
+gr2l = concat . cons . (singl >< id)
 \end{code}
 
 \subsection*{Problema 4}
