@@ -159,15 +159,15 @@
 
 \begin{center}\large
 \begin{tabular}{ll}
-Grupo nr. & 99 (preencher)
+Grupo nr. & 4
 \\\hline
-a11111 & Nome1 (preencher)
+a96766 & Guilherme Sampaio
 \\
-a22222 & Nome2 (preencher)
+a96681 & Luís Pereira
 \\
-a33333 & Nome3 (preencher)
+a95254 & Rui Oliveira
 \\
-a44444 & Nome4 (preencher, se aplicável)
+a95104 & Tiago Pereira
 \end{tabular}
 \end{center}
 
@@ -1354,6 +1354,42 @@ Assim sendo, a função \verb|gr2l| é a composição de todas estas funções:
 \begin{code}
 gr2l = concat . cons . (singl >< id)
 \end{code}
+
+\subsubsection*{carpets}
+
+Esta função deve receber um inteiro e devolver uma lista contendo os diferentes passos de aplicação do algoritmo. Ou seja, o primeiro elemento corresponde à lista de quadrados que se obtém rodando o algoritmo uma vez, o segundo elemento duas vezes, .etc.
+
+Para isso, pode-se aproveitar a função \verb|sierpinski|, que recebe um par quadrado/inteiro, que corresponde ao quadrado inicial e ao número de iterações do algoritmo, respetivamente; e devolve os quadrados gerados.
+
+Pretende aplicar-se, então, a função \verb|sierpinski| com todos os limites de profundidade de 0 a $n$ (em que $n$ é o parâmetro de \verb|carpets|). Isso motiva a aplicar um \verb|map| da função \verb|sierpinski| à lista \verb|[0..n]|:
+
+\begin{code}
+carpets n = map (sierpinski . ???) [0..n]
+\end{code}
+
+No entanto, não é possível aplicar a função \verb|sierpinski| a um inteiro. De facto, a função, como referido anteriormente, recebe um par. Esse inteiro deve ser passado à função como segundo elemento do par, sendo que o primeiro elemento é independente desse valor, sendo sempre o mesmo (expresso pela função \verb|defaultSquare|). Isto motiva a utilização de um \verb|split|, em que do lado direito se aplica a função identidade, e do lado esquerdo a constante \verb|defaultSquare|.
+
+Assim chega-se à definição final de \verb|carpets|:
+
+\begin{code}
+carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n]
+\end{code}
+
+\subsubsection*{present}
+
+
+Finalmente, esta função deve receber uma lista como aquela devolvida pela função \verb|carpets| e representá-la visualmente, devolvendo, assim, um \verb|IO [()]|. Entre cada iteração, deve aguardar um valor fixo de tempo - algo que a função \verb|await| já faz.
+
+Esta função pode ser definida como um catamorfismo sobre listas. No entanto, o grupo desenvolveu uma solução mais simples recorrendo a um \verb|map|. O raciocínio é bastante semelhante: pretende-se desenhar os quadrados e esperar; para cada elemento da lista recebida. Para isso, pode-se executar um \verb|map| de uma função que faça o pretendido para cada elemento da lista. Mas como definir tal função? 
+
+O primeiro passo será sempre desenhar: por isso a função \verb|drawSq| será sempre a primeira a ser chamada. De seguida é preciso esperar, recorrendo-se à função \verb|>> await|. A combinação de \verb|await| com a função \verb|>>| de Haskell pode ser explicada pelo facto da função \verb|drawSq| retornar um tipo monádico que deve ser ignorado por \verb|await|. Compondo tudo:
+
+No entanto, o tipo de retorno desta solução é \verb|[IO ()]| e não \verb|IO [()]|. Para resolver este problema, basta adicionar uma chamada à função \verb|sequence|, que transforma uma lista de monades num monade de listas. Combinando tudo:
+
+\begin{code}
+present = sequence . (map ((>> await) . drawSq))
+\end{code}
+
 
 \subsection*{Problema 4}
 \subsubsection*{Versão não probabilística}

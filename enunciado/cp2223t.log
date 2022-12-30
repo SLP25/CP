@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  29 DEC 2022 20:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  30 DEC 2022 15:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1657,11 +1657,18 @@ Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
 
 \openout6 = `cp2223t.ptb'.
 
+ [19]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
- [19] (./cp2223t.ind [20] [21
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+ (./cp2223t.ind [20] [21
 
 
 ])
@@ -1674,8 +1681,8 @@ Package rerunfilecheck Info: File `cp2223t.out' has not changed.
 (rerunfilecheck)             Checksum: 198FBAC9DCE1E7BFD94A43BA0836654E;1628.
  ) 
 Here is how much of TeX's memory you used:
- 35504 strings out of 478238
- 671524 string characters out of 5850456
+ 35506 strings out of 478238
+ 671546 string characters out of 5850456
  1025520 words of memory out of 5000000
  52971 multiletter control sequences out of 15000+600000
  625899 words of font info for 197 fonts, out of 8000000 for 9000
@@ -1707,10 +1714,10 @@ b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
 /share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (21 pages, 743863 bytes).
+Output written on cp2223t.pdf (21 pages, 747512 bytes).
 PDF statistics:
- 496 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
- 89 named destinations out of 1000 (max. 500000)
+ 499 PDF objects out of 1000 (max. 8388607)
+ 399 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 
