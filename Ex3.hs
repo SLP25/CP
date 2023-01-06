@@ -34,28 +34,28 @@ constructSierp = present . carpets
 
 
 sierpinski :: (Square, Int) -> [Square]
-sierpinski = rose2List . squares --hyloRose gr2l gsq
+sierpinski = hyloRose gsq gr2l --rose2List . squares
 
 --------------------ANSWERS--------------------
 
 squares :: (Square, Int) -> Rose Square
-squares = anaRose gr2l
+squares = anaRose gsq
 
 rose2List :: Rose a -> [a]
-rose2List = cataRose gsq
+rose2List = cataRose gr2l
 
 
-gr2l :: (Square, Int) -> (Square, [(Square, Int)])
-gr2l = (split (middleSquare . p1) ((either nil ((uncurry zip) . (sideSquares >< repeat))) . distr)) . (id >< outNat)
---gr2l (sq, 0) = (middleSquare sq, [])
---gr2l (sq, n) = (middleSquare sq, map (\x -> (x, n - 1)) $ sideSquares sq)
+gsq :: (Square, Int) -> (Square, [(Square, Int)])
+gsq = (split (middleSquare . p1) ((either nil ((uncurry zip) . (sideSquares >< repeat))) . distr)) . (id >< outNat)
+--gsq (sq, 0) = (middleSquare sq, [])
+--gsq (sq, n) = (middleSquare sq, map (\x -> (x, n - 1)) $ sideSquares sq)
 --    lambda: split id (const (n - 1))
 
-gsq :: (a, [[a]]) -> [a]
-gsq = concat . cons . (singl >< id)
+gr2l :: (a, [[a]]) -> [a]
+gr2l = concat . cons . (singl >< id)
 
 carpets :: Int -> [[Square]]
-carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n]
+carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n-1]
 
 present :: [[Square]] -> IO [()]
 present = sequence . (map ((>> await) . drawSq))
@@ -68,7 +68,7 @@ middleSquare = (split ((uncurry addTup) . (id >< dup)) p2) . (id >< (/3))
 --    where l' = l / 3
 
 sideSquares :: Square -> [Square]
-sideSquares (xy, l) = map (split ((addTup xy) . (scaleTup l')) (const l')) [(1,2),(2,2),(2,1),(2,0),(1,0),(0,0),(0,1),(0,2)]
+sideSquares (xy, l) = [(addTup xy $ scaleTup l' (x,y), l') | x <- [0..2], y <- [0..2], x * y /= 1]
     where l' = l / 3
 
 addTup (a,b) (c,d) = (a + c, b + d)

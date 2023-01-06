@@ -63,7 +63,7 @@ rankings = [
 --------general--------
 
 consolidate :: (Eq a, Num b) => [(a, b)] -> [(a, b)]
-consolidate = cataList cgene --map (id >< sum) . collect    --TODO: perguntar ao stor sobre o collect (perde elems repetidos)
+consolidate = cataList cgene --map (id >< sum) . collect
 
 mmbin :: Monad m => ((a, b) -> m c) -> (m a, m b) -> m c
 mmbin f (a, b) = do {x <- a; y <- b; f (x, y)}
@@ -188,13 +188,13 @@ cgene = either nil (uncurry addPoints)
                                             | otherwise = y : addPoints x t
 
 pairup :: Eq b => [b] -> [(b, b)]
-pairup = concat . ((uncurry (zipWith zip))) . (split repeat (tail . suffixes))
+pairup = concat . uncurry (zipWith zip) . split repeat (tail . suffixes)
 
 matchResult :: (Match -> Maybe Team) -> Match -> [(Team, Int)]
 matchResult f = uncurry matchResults . split id f
 
 glt :: [Team] -> Either Team ([Team], [Team])
-glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+glt = (id -|- (splitInHalf . cons)) . out
 
 
 ---Probabilistic---
@@ -206,7 +206,8 @@ pgroupWinners :: (Match -> Dist (Maybe Team)) -> [Match] -> Dist [Team]
 pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
 
 pmatchResult :: (Match -> Dist (Maybe Team)) -> Match -> Dist [(Team, Int)]
-pmatchResult criteria m = criteria m >>= (return . matchResults m)
+pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)
+--pmatchResult criteria m = criteria m >>= (return . matchResults m)
 
 --------------------AUX FUNCTIONS--------------------
 
@@ -221,8 +222,15 @@ teamResult t = maybe (t, 1) (cond (==t) (const (t, 3)) (const (t, 0)))
 --                       | otherwise = (t, 0)
 
 matchResults :: Match -> Maybe Team -> [(Team, Int)]
-matchResults = curry (cons . (tr >< singl . tr) . split (p1 >< id) (p2 >< id))
-    where tr = uncurry teamResult
+matchResults (t1, t2) = toList . (split (teamResult t1) (teamResult t2))
+
+toList :: (a, a) -> [a]
+toList = cons . (id >< singl)
+--toList (x,y) = [x,y]
+
+multiComp :: (c -> d) -> (a -> b -> c) -> a -> b -> d
+multiComp = (.) . (.)
+--multiComp f g x = f . (g x)
 
 multiProd :: [Dist a] -> Dist [a]
 multiProd = foldr (joinWith (:)) (return [])
