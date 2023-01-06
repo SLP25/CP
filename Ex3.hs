@@ -34,7 +34,7 @@ constructSierp = present . carpets
 
 
 sierpinski :: (Square, Int) -> [Square]
-sierpinski = hyloRose gsq gr2l --rose2List . squares
+sierpinski = hyloRose gr2l gsq --rose2List . squares
 
 --------------------ANSWERS--------------------
 
