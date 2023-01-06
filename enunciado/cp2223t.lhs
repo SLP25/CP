@@ -1237,14 +1237,106 @@ Como se pode ver pelos gráficos, a implementação ineficiente de $f$ apresenta
 Esta melhoria de desempenho é notável, visto que torna uma função que não seria viável utilizar para valores relativamente pequenos do seu argumento, numa função capaz de processar valores muito superiores em intervalos de tempo bastante reduzidos.
 
 \subsection*{Problema 2}
+
 Gene de |tax|:
 \begin{code}
-gene = undefined
+gene = ((id) -|- ( id >< ((groupBy (const canTrim)) . (\verb|map| trim)))) . out
 \end{code}
 Função de pós-processamento:
 \begin{code}
-post = undefined
+post = cataExp (either (singl . singl) ((uncurry \verb|map|) . ((:) >< concat)))
 \end{code}
+
+\subsubsection*{gene}
+
+Desenhando o diagrama do anamorfismo:
+
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Exp String String|
+&
+    |String| + |String| \times (|Exp String String|)^{*}
+          \ar[l]_-{|inExp|}
+\\
+     |String|^{*}
+          \ar[r]^-{|gene|}
+          \ar[u]_-{|anaExp gene|}
+&
+     |String| + |String| \times |String|^{*^{*}}
+          \ar[u]^{|id + (id >< (map (anaExp gene)))|}
+}
+\end{eqnarray*}
+
+A função \verb|gene| vai ser espressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\verb|out|) ao argumento da função, podemos definir o gene como uma soma de funções.
+
+O lado esquerdo da soma - correspondente ao caso de paragem - será a identidade. Isto porque, caso a lista seja singular, pretende devolver-se esse elemento, que será uma folha na árvore de expressão.
+
+O lado direito da soma é, como já tem sido hábito, bastante mais complexo. Como se deve tratar de uma função que recebe e devolve pares, vamos exprimi-la como um produto de outras duas funções. O fator do lado esquerdo deve ser, mais uma vez, a identidade, visto que se pretende preservar o elemento à cabeça da lista no nodo atual da árvore. O fator do lado direito deve ser uma função que, dada a cauda da lista, remova 4 espaços a todos os elementos (visto que estes elementos serão filhos na árvore, todos os elementos da lista serão \textit{strings} que começam com, pelo menos, 4 espaços), e parta a lista resultante por subárvores a explorar recursivamente. Como se faz esta divisão? Simplesmente parte-se a lista sempre que há um elemento que não está identado. Porquê nesses elementos? Porque esses elementos constituem as raízes das subárvores e, por isso, devem ser a cabeça das listas que serão recursivamente convertidas em árvores.
+
+Deste modo, começa-se por um \verb|map trim| à lista inicial. A função \verb|trim| remove os primeiro quatro espaços de uma \verb|string|. De seguida, essa função é composta com um \verb|groupBy (const canTrim)|\footnote{Dada a assinatura da função \verb|groupBy|, houve a necessidade de adicionar um primeiro argumento à função \verb|canTrim|, que deve ser ignorado pela mesma, daí a utilização da função \verb|const|}. A função \verb|groupBy| está definida no módulo de Haskell \verb|Data.List| e parte uma lista sempre que a função argumento seja verdadeiro, colocando o elemento para o qual isso aconteceu à cabeça de uma nova lista.
+
+Assim sendo, o gene do anamorfismo é definido por
+
+\begin{code}
+gene = ((id) -|- ( id >< ((groupBy (const canTrim)) . (\verb|map| trim)))) . out
+\end{code}
+
+com as seguintes funções auxiliares
+
+\begin{code}
+trim (' ':' ':' ':' ':r) = r
+
+canTrim (' ':' ':' ':' ':_) = True
+canTrim _                   = False
+\end{code}
+
+\subsubsection*{post}
+
+A função \verb|post| recebe uma árvore de expressão e deve retornar uma lista de listas de \verb|String|, que corresponde à tabela pretendida. Mais concretamente, deve, para cada elemento da árvore, criar uma lista correspondente à travessia na árvore desde a sua raiz até esse elemento.
+
+Esta operação pode ser implementada como um catamorfismo sobre árvores de expressões. Fazendo o diagrama correspondente:
+
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |Exp String String|
+           \ar[d]_-{|cataExp g|}
+           \ar[r]_-{|outExp|}
+&
+    |String| + |String| \times (|Exp String String|)^{*}
+           \ar[d]^{|id + (id >< (map (cataExp g)))|}
+\\
+     |String|^{*^{*}}
+&
+     |String| + |String| \times |String|^{*^{*^{*}}}
+           \ar[l]^-{|g|}
+}
+\end{eqnarray*}
+
+Com isto, basta apenas definir o gene do catamorfismo. Tendo em conta o facto da função receber uma soma e devolver uma lista, esta será definida como um \verb|either|.
+
+ O caso de paragem (lado esquerdo do \verb|either|) corresponde a uma folha da árvore de expressão. Nesse caso deve retornar-se uma lista singular, contendo outra lista singular contendo apenas esse valor. Isto faz-se com duas chamadas consecutivas de \verb|singl|, ou seja, \verb|singl . singl|.
+
+
+No caso recursivo, recebe-se o elemento atual e o resultado das chamadas recursivas para os filhos. Aí, concatenam-se todos os resultados recursivos na mesma lista (para manter a noção de tabela) e, de seguida, adiciona-se o elemento à cabeça de cada uma dessas listas. Em notação \textit{pointwise}:
+
+\begin{code}
+\verb|map| (s:) $ concat l
+\end{code}
+
+Passando para \textit{pointfree}:
+
+\begin{code}
+(uncurry \verb|map|) . ((:) >< concat)
+\end{code}
+
+Juntando tudo, temos a definição do gene e da função \verb|post|:
+
+\begin{code}
+post = cataExp g
+g = either (singl . singl) ((uncurry    \verb|map|) . ((:) >< concat))
+\end{code}
+
+
 
 \subsection*{Problema 3}
 \begin{code}
@@ -1331,10 +1423,10 @@ Consideremos o diagrama do catamorfismo \verb|rose2List|:
 \xymatrix@@C=2cm{
     |Rose A|
            \ar[d]_-{|cataRose gr2l|}
+           \ar[r]_-{|out|}
 &
     |A| \times |Rose A|^{*}
            \ar[d]^{|id + (cataRose gr2l)|}
-           \ar[l]_-{|in|}
 \\
      |A|^{*}
 &
@@ -1399,12 +1491,79 @@ cgene = undefined
 \end{code}
 Geração dos jogos da fase de grupos:
 \begin{code}
-pairup = undefined
+pairup = concat . ((uncurry (zipWith zip))) . (split repeat (tail . suffixes))
 
-matchResult = undefined
+matchResult f = uncurry matchResults . split id f
 
-glt = undefined
+glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+
+
+matchResults = curry (cons . (tr >< singl . tr) . split (p1 >< id) (p2 >< id))
+
+tr = uncurry teamResult
+
+teamResult t = maybe (t, 1) (cond (==t) (const (t, 3)) (const (t, 0)))
 \end{code}
+
+Comecemos pela função \verb|pairup|, que deve, dado um grupo, devolver uma lista com todos os jogos desse grupo, sobre a forma de pares de equipas (\textit{strings}). 
+
+
+%=========================================
+%             matchResult
+%=========================================
+
+A função \verb|matchResult| deve, dada uma função que devolve o resultado de um jogo e um jogo, devolver uma lista com a pontuação de cada uma das equipas nesse jogo. Recordemos que, no futebol, uma equipa ganha 3 pontos se ganhar, 1 se empatar, e 0 se perder.
+
+Inicialmente, partiu-se o problema em duas partes mais pequenas. A primeira consiste em calcular, dados um jogo e o seu resultado, as pontuações de cada equipa; o que deu origem à função \verb|matchResults|. A segunda parte consiste em calcular o resultado do jogo, e preparar essa informação para ser consumida pela função anterior.
+
+A função \verb|matchResults| é do tipo \verb|Match -> Maybe Team -> [(Team, Int)]|. Em primeiro lugar, esta função vai ser \textit{uncurried} para receber um par. Em segundo lugar, para obter os dados para esta função, basta aplicar um \verb|split| (visto tratar-se de uma função que recebe um par), em que uma das funções é a identidade (porque pretendemos passar o jogo que recebemos, sem modificações), e a outra é a função que calcula o resultado do jogo, que foi recebida como argumento (\verb|f|). Assim sendo, a função \verb|matchResult| é definida por
+
+\begin{code}
+matchResult f = uncurry matchResults . split id f
+\end{code}
+
+Passemos, agora, à primeira parte do problema: a função \verb|matchResults|.
+
+
+
+%=========================================
+%                GLT
+%=========================================
+
+A função \verb|glt| é o gene de um anamorfismo sobre \textit{Leaf Trees}, o qual deve, a partir da lista das equipas que passaram à fase eliminatória em cada grupo, construir a árvore que representa o \textit{mata-mata}. O anamorfismo é representado no seguinte diagrama.
+
+\begin{eqnarray*}
+\xymatrix@@C=2cm{
+    |LTree Team|
+&
+    |Team| + (|LTree Team| \times |LTree Team|)
+          \ar[l]_-{|inLTree|}
+\\
+     |Team|^{*}
+          \ar[u]^{|anaLTree glt|}
+          \ar[r]^-{|gr2l|}
+&
+     |Team| + (|Team| \times |Team|^{*})
+          \ar[u]^{id + (|Leaf| \times |(anaLTree glt)|)}
+}
+\end{eqnarray*}
+
+Deriva-se, assim o tipo em Haskell da função \verb|glt|: \verb|[Team] -> Either Team (Team,[Team])|. Como o resultado é uma soma, esta função poderá ser expressa, provavelmente, como uma soma de funções. No entanto, o tipo de entrada não é uma soma, é uma lista. Mas, se aplicarmos o funtor das listas ao argumento de entrada já ficamos com uma soma: \verb|Team + Team \times Team|.
+
+Após aplicar o funtor, é necessário definir ambos os casos da soma. Caso a lista seja singular, deve devolver-se o próprio elemento, isto é, a função do lado esquerdo da soma deve ser a identidade. Caso a lista tenha mais elementos, deve-se dividi-la exatamente ao meio. Para isso, primeiro é preciso reconstruir a lista (utilizando o operador \verb|:| de Haskell) e usar uma função, definida pelo grupo, para a dividir a meio, chamada \verb|splitInHalf|.\footnote{Há já definida uma função no módulo \verb|LTree|, chamada \verb|lspit|, que também parte a lista a meio. No entanto, esta não a parte exatamente a meio. Em vez disso, intercala os elementos entre as duas listas resultantes. Por isso, não foi usada.}.
+
+Assim sendo, o lado direito da soma é
+
+\begin{code}
+(splitInHalf . (uncurry (:)))
+\end{code}
+
+e o gene \verb|glt|
+
+\begin{code}
+glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+\end{code}
+
 \subsubsection*{Versão probabilística}
 \begin{code}
 pinitKnockoutStage = undefined

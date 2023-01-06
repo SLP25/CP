@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  30 DEC 2022 15:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  6 JAN 2023 19:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1615,39 +1615,58 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 png (PNG copy)>]
 \openout6 = `cp2223t.ptb'.
 
+ <xymatrix 2x2
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1762.
+
+191>
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
+ <xymatrix 2x2
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1816.
+
+191> [18]
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
  [][][][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
+Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
  [][] 
  []
 
-<xymatrix 2x2 191>
+<xymatrix 2x2 191> [19]
 \openout6 = `cp2223t.ptb'.
 
- [18]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1655,11 +1674,7 @@ Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
  <xymatrix 2x2 191>
 \openout6 = `cp2223t.ptb'.
 
-\openout6 = `cp2223t.ptb'.
-
- [19]
-\openout6 = `cp2223t.ptb'.
-
+ [20]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1668,7 +1683,24 @@ Overfull \hbox (10.25345pt too wide) in paragraph at lines 1764--1779
 
 \openout6 = `cp2223t.ptb'.
 
- (./cp2223t.ind [20] [21
+\openout6 = `cp2223t.ptb'.
+
+ [21]
+\openout6 = `cp2223t.ptb'.
+
+ <xymatrix 2x2
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2101.
+
+188>
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+ [22]
+\openout6 = `cp2223t.ptb'.
+
+ (./cp2223t.ind [23] [24
 
 
 ])
@@ -1681,13 +1713,13 @@ Package rerunfilecheck Info: File `cp2223t.out' has not changed.
 (rerunfilecheck)             Checksum: 198FBAC9DCE1E7BFD94A43BA0836654E;1628.
  ) 
 Here is how much of TeX's memory you used:
- 35506 strings out of 478238
- 671546 string characters out of 5850456
- 1025520 words of memory out of 5000000
- 52971 multiletter control sequences out of 15000+600000
+ 35518 strings out of 478238
+ 671685 string characters out of 5850456
+ 1025527 words of memory out of 5000000
+ 52976 multiletter control sequences out of 15000+600000
  625899 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,19n,131p,3294b,1411s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 99i,21n,131p,3294b,1411s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 pdfTeX warning (dest): name{section.3.17} has been referenced but does not exis
 t, replaced by a fixed one
@@ -1714,10 +1746,10 @@ b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
 /share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (21 pages, 747512 bytes).
+Output written on cp2223t.pdf (24 pages, 762806 bytes).
 PDF statistics:
- 499 PDF objects out of 1000 (max. 8388607)
- 399 compressed objects within 4 object streams
- 91 named destinations out of 1000 (max. 500000)
+ 528 PDF objects out of 1000 (max. 8388607)
+ 418 compressed objects within 5 object streams
+ 98 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 

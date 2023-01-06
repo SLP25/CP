@@ -1726,20 +1726,133 @@ Como se pode ver pelos gráficos, a implementação ineficiente de $f$ apresenta
 Esta melhoria de desempenho é notável, visto que torna uma função que não seria viável utilizar para valores relativamente pequenos do seu argumento, numa função capaz de processar valores muito superiores em intervalos de tempo bastante reduzidos.
 
 \subsection*{Problema 2}
+
 Gene de \ensuremath{\Varid{tax}}:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{gene}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{gene}\mathrel{=}((\Varid{id})+(\Varid{id}\times((\Varid{groupBy}\;\underline{\Varid{canTrim}})\comp (\lambda \Varid{verb}\mid \map \mid \Varid{trim}))))\comp \Varid{out}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Função de pós-processamento:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{post}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{post}\mathrel{=}\llparenthesis\, \alt{\Varid{singl}\comp \Varid{singl}}{(\uncurry{\cdot }\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat})}\,\rrparenthesis_\textit{\tiny Exp}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+
+\subsubsection*{gene}
+
+Desenhando o diagrama do anamorfismo:
+
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\Conid{Exp}\;\Conid{String}\;\Conid{String}}
+&
+    \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times (\ensuremath{\Conid{Exp}\;\Conid{String}\;\Conid{String}})^{*}
+          \ar[l]_-{\ensuremath{\mathsf{in}_{\tiny\ \textit{Exp}}}}
+\\
+     \ensuremath{\Conid{String}}^{*}
+          \ar[r]^-{\ensuremath{\Varid{gene}}}
+          \ar[u]_-{\ensuremath{\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}}}
+&
+     \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times \ensuremath{\Conid{String}}^{*^{*}}
+          \ar[u]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\map \;\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}))}}
+}
+\end{eqnarray*}
+
+A função \text{\ttfamily gene} vai ser espressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\text{\ttfamily out}) ao argumento da função, podemos definir o gene como uma soma de funções.
+
+O lado esquerdo da soma - correspondente ao caso de paragem - será a identidade. Isto porque, caso a lista seja singular, pretende devolver-se esse elemento, que será uma folha na árvore de expressão.
+
+O lado direito da soma é, como já tem sido hábito, bastante mais complexo. Como se deve tratar de uma função que recebe e devolve pares, vamos exprimi-la como um produto de outras duas funções. O fator do lado esquerdo deve ser, mais uma vez, a identidade, visto que se pretende preservar o elemento à cabeça da lista no nodo atual da árvore. O fator do lado direito deve ser uma função que, dada a cauda da lista, remova 4 espaços a todos os elementos (visto que estes elementos serão filhos na árvore, todos os elementos da lista serão \textit{strings} que começam com, pelo menos, 4 espaços), e parta a lista resultante por subárvores a explorar recursivamente. Como se faz esta divisão? Simplesmente parte-se a lista sempre que há um elemento que não está identado. Porquê nesses elementos? Porque esses elementos constituem as raízes das subárvores e, por isso, devem ser a cabeça das listas que serão recursivamente convertidas em árvores.
+
+Deste modo, começa-se por um \text{\ttfamily map~trim} à lista inicial. A função \text{\ttfamily trim} remove os primeiro quatro espaços de uma \text{\ttfamily string}. De seguida, essa função é composta com um \text{\ttfamily groupBy~\char40{}const~canTrim\char41{}}\footnote{Dada a assinatura da função \text{\ttfamily groupBy}, houve a necessidade de adicionar um primeiro argumento à função \text{\ttfamily canTrim}, que deve ser ignorado pela mesma, daí a utilização da função \text{\ttfamily const}}. A função \text{\ttfamily groupBy} está definida no módulo de Haskell \text{\ttfamily Data\char46{}List} e parte uma lista sempre que a função argumento seja verdadeiro, colocando o elemento para o qual isso aconteceu à cabeça de uma nova lista.
+
+Assim sendo, o gene do anamorfismo é definido por
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{gene}\mathrel{=}((\Varid{id})+(\Varid{id}\times((\Varid{groupBy}\;\underline{\Varid{canTrim}})\comp (\lambda \Varid{verb}\mid \map \mid \Varid{trim}))))\comp \Varid{out}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+com as seguintes funções auxiliares
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{29}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{trim}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\Varid{r})\mathrel{=}\Varid{r}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{canTrim}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:\char95 })\mathrel{=}\Conid{True}{}\<[E]%
+\\
+\>[B]{}\Varid{canTrim}\;\anonymous {}\<[29]%
+\>[29]{}\mathrel{=}\Conid{False}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+\subsubsection*{post}
+
+A função \text{\ttfamily post} recebe uma árvore de expressão e deve retornar uma lista de listas de \text{\ttfamily String}, que corresponde à tabela pretendida. Mais concretamente, deve, para cada elemento da árvore, criar uma lista correspondente à travessia na árvore desde a sua raiz até esse elemento.
+
+Esta operação pode ser implementada como um catamorfismo sobre árvores de expressões. Fazendo o diagrama correspondente:
+
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{\Conid{Exp}\;\Conid{String}\;\Conid{String}}
+           \ar[d]_-{\ensuremath{\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}}}
+           \ar[r]_-{\ensuremath{\mathsf{out}_{\tiny\ \textit{Exp}}}}
+&
+    \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times (\ensuremath{\Conid{Exp}\;\Conid{String}\;\Conid{String}})^{*}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\map \;\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}))}}
+\\
+     \ensuremath{\Conid{String}}^{*^{*}}
+&
+     \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times \ensuremath{\Conid{String}}^{*^{*^{*}}}
+           \ar[l]^-{\ensuremath{\Varid{g}}}
+}
+\end{eqnarray*}
+
+Com isto, basta apenas definir o gene do catamorfismo. Tendo em conta o facto da função receber uma soma e devolver uma lista, esta será definida como um \text{\ttfamily either}.
+
+ O caso de paragem (lado esquerdo do \text{\ttfamily either}) corresponde a uma folha da árvore de expressão. Nesse caso deve retornar-se uma lista singular, contendo outra lista singular contendo apenas esse valor. Isto faz-se com duas chamadas consecutivas de \text{\ttfamily singl}, ou seja, \text{\ttfamily singl~\char46{}~singl}.
+
+
+No caso recursivo, recebe-se o elemento atual e o resultado das chamadas recursivas para os filhos. Aí, concatenam-se todos os resultados recursivos na mesma lista (para manter a noção de tabela) e, de seguida, adiciona-se o elemento à cabeça de cada uma dessas listas. Em notação \textit{pointwise}:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\lambda \Varid{verb}\mid \map \mid (\Varid{s}\mathbin{:})\mathbin{\$}\Varid{concat}\;\Varid{l}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Passando para \textit{pointfree}:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}(\uncurry{\cdot }\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Juntando tudo, temos a definição do gene e da função \text{\ttfamily post}:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{41}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{post}\mathrel{=}\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}{}\<[E]%
+\\
+\>[B]{}\Varid{g}\mathrel{=}\alt{\Varid{singl}\comp \Varid{singl}}{(\uncurry{\cdot }{}\<[41]%
+\>[41]{}\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat})}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+
 
 \subsection*{Problema 3}
 \begin{hscode}\SaveRestoreHook
@@ -1843,10 +1956,10 @@ Consideremos o diagrama do catamorfismo \text{\ttfamily rose2List}:
 \xymatrix@C=2cm{
     \ensuremath{\Conid{Rose}\;\Conid{A}}
            \ar[d]_-{\ensuremath{\llparenthesis\, \Varid{gr2l}\,\rrparenthesis_\textit{\tiny R}}}
+           \ar[r]_-{\ensuremath{\Varid{out}}}
 &
     \ensuremath{\Conid{A}} \times \ensuremath{\Conid{Rose}\;\Conid{A}}^{*}
            \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}\llparenthesis\, \Varid{gr2l}\,\rrparenthesis_\textit{\tiny R}}}
-           \ar[l]_-{\ensuremath{\mathbf{in}}}
 \\
      \ensuremath{\Conid{A}}^{*}
 &
@@ -1928,13 +2041,88 @@ Geração dos jogos da fase de grupos:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pairup}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{pairup}\mathrel{=}\Varid{concat}\comp (\uncurry{(\Varid{zipWith}\;\Varid{zip})})\comp \conj{\Varid{repeat}}{\Varid{tail}\comp \Varid{suffixes}}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{matchResult}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{matchResult}\;\Varid{f}\mathrel{=}\uncurry{\Varid{matchResults}}\comp \conj{\Varid{id}}{\Varid{f}}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{glt}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{glt}\mathrel{=}(\Varid{id}+(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}))\comp \Varid{out}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{matchResults}\mathrel{=}\overline{\Varid{cons}\comp (\Varid{tr}\times\Varid{singl}\comp \Varid{tr})\comp \conj{\p1\times\Varid{id}}{\p2\times\Varid{id}}}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{tr}\mathrel{=}\uncurry{\Varid{teamResult}}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{teamResult}\;\Varid{t}\mathrel{=}\Varid{maybe}\;(\Varid{t},\mathrm{1})\;(\Varid{cond}\;(\equiv \Varid{t})\;\underline{\Varid{t},\mathrm{3}}\;\underline{\Varid{t},\mathrm{0}}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+
+Comecemos pela função \text{\ttfamily pairup}, que deve, dado um grupo, devolver uma lista com todos os jogos desse grupo, sobre a forma de pares de equipas (\textit{strings}). 
+
+
+%=========================================
+%             matchResult
+%=========================================
+
+A função \text{\ttfamily matchResult} deve, dada uma função que devolve o resultado de um jogo e um jogo, devolver uma lista com a pontuação de cada uma das equipas nesse jogo. Recordemos que, no futebol, uma equipa ganha 3 pontos se ganhar, 1 se empatar, e 0 se perder.
+
+Inicialmente, partiu-se o problema em duas partes mais pequenas. A primeira consiste em calcular, dados um jogo e o seu resultado, as pontuações de cada equipa; o que deu origem à função \text{\ttfamily matchResults}. A segunda parte consiste em calcular o resultado do jogo, e preparar essa informação para ser consumida pela função anterior.
+
+A função \text{\ttfamily matchResults} é do tipo \text{\ttfamily Match~\char45{}\char62{}~Maybe~Team~\char45{}\char62{}~\char91{}\char40{}Team\char44{}~Int\char41{}\char93{}}. Em primeiro lugar, esta função vai ser \textit{uncurried} para receber um par. Em segundo lugar, para obter os dados para esta função, basta aplicar um \text{\ttfamily split} (visto tratar-se de uma função que recebe um par), em que uma das funções é a identidade (porque pretendemos passar o jogo que recebemos, sem modificações), e a outra é a função que calcula o resultado do jogo, que foi recebida como argumento (\text{\ttfamily f}). Assim sendo, a função \text{\ttfamily matchResult} é definida por
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{matchResult}\;\Varid{f}\mathrel{=}\uncurry{\Varid{matchResults}}\comp \conj{\Varid{id}}{\Varid{f}}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Passemos, agora, à primeira parte do problema: a função \text{\ttfamily matchResults}.
+
+
+
+%=========================================
+%                GLT
+%=========================================
+
+A função \text{\ttfamily glt} é o gene de um anamorfismo sobre \textit{Leaf Trees}, o qual deve, a partir da lista das equipas que passaram à fase eliminatória em cada grupo, construir a árvore que representa o \textit{mata-mata}. O anamorfismo é representado no seguinte diagrama.
+
+\begin{eqnarray*}
+\xymatrix@C=2cm{
+    \ensuremath{{\LTree}\;\Conid{Team}}
+&
+    \ensuremath{\Conid{Team}} + (\ensuremath{{\LTree}\;\Conid{Team}} \times \ensuremath{{\LTree}\;\Conid{Team}})
+          \ar[l]_-{\ensuremath{\mathsf{in}_{\tiny\ \textit{LTree}}}}
+\\
+     \ensuremath{\Conid{Team}}^{*}
+          \ar[u]^{\ensuremath{\lanabracket\;\!\Varid{glt}\;\!\ranabracket}}
+          \ar[r]^-{\ensuremath{\Varid{gr2l}}}
+&
+     \ensuremath{\Conid{Team}} + (\ensuremath{\Conid{Team}} \times \ensuremath{\Conid{Team}}^{*})
+          \ar[u]^{id + (\ensuremath{\Conid{Leaf}} \times \ensuremath{\lanabracket\;\!\Varid{glt}\;\!\ranabracket})}
+}
+\end{eqnarray*}
+
+Deriva-se, assim o tipo em Haskell da função \text{\ttfamily glt}: \text{\ttfamily \char91{}Team\char93{}~\char45{}\char62{}~Either~Team~\char40{}Team\char44{}\char91{}Team\char93{}\char41{}}. Como o resultado é uma soma, esta função poderá ser expressa, provavelmente, como uma soma de funções. No entanto, o tipo de entrada não é uma soma, é uma lista. Mas, se aplicarmos o funtor das listas ao argumento de entrada já ficamos com uma soma: \text{\ttfamily Team~\char43{}~Team~\char92{}times~Team}.
+
+Após aplicar o funtor, é necessário definir ambos os casos da soma. Caso a lista seja singular, deve devolver-se o próprio elemento, isto é, a função do lado esquerdo da soma deve ser a identidade. Caso a lista tenha mais elementos, deve-se dividi-la exatamente ao meio. Para isso, primeiro é preciso reconstruir a lista (utilizando o operador \text{\ttfamily \char58{}} de Haskell) e usar uma função, definida pelo grupo, para a dividir a meio, chamada \text{\ttfamily splitInHalf}.\footnote{Há já definida uma função no módulo \text{\ttfamily LTree}, chamada \text{\ttfamily lspit}, que também parte a lista a meio. No entanto, esta não a parte exatamente a meio. Em vez disso, intercala os elementos entre as duas listas resultantes. Por isso, não foi usada.}.
+
+Assim sendo, o lado direito da soma é
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+e o gene \text{\ttfamily glt}
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{glt}\mathrel{=}(\Varid{id}+(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}))\comp \Varid{out}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
 \subsubsection*{Versão probabilística}
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
