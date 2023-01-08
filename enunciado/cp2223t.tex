@@ -2127,13 +2127,58 @@ e o gene \text{\ttfamily glt}
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pinitKnockoutStage}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{pinitKnockoutStage}\mathrel{=}\Varid{return}\comp \Varid{initKnockoutStage}{}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{pgroupWinners}\mathbin{::}(\Conid{Match}\to \fun{Dist}\;(\Conid{Maybe}\;\Conid{Team}))\to [\mskip1.5mu \Conid{Match}\mskip1.5mu]\to \fun{Dist}\;[\mskip1.5mu \Conid{Team}\mskip1.5mu]{}\<[E]%
 \\
-\>[B]{}\Varid{pgroupWinners}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{pgroupWinners}\;\Varid{criteria}\mathrel{=}(\bind \Varid{return}\comp \Varid{best}\;\mathrm{2}\comp \Varid{consolidate}\comp \Varid{concat})\comp \Varid{multiProd}\comp \map \;(\Varid{pmatchResult}\;\Varid{criteria}){}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{pmatchResult}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\mathrel{=}\uncurry{(\bind )}\comp \conj{\Varid{criteria}}{\Varid{return}\mathbin{`\Varid{multiComp}`}\Varid{matchResults}}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{multiComp}\mathrel{=}(\comp )\comp (\comp ){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+A definição da função \text{\ttfamily pinitKnockoutStage} é trivial quando feita à custa da função \text{\ttfamily initKnockoutStage}. De facto, a \text{\ttfamily pinitKnockoutStage} não depende em nada de probabilidades; a única diferença em relação à sua variante não monádica é o facto de ter de retornar um valor no monáde das probabilidades. Assim sendo, basta utilizar a função \text{\ttfamily return} do monáde após aplicar a \text{\ttfamily initKnockoutStage} original; ficando assim definida como
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{pinitKnockoutStage}\mathrel{=}\Varid{return}\comp \Varid{initKnockoutStage}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+
+Comecemos por derivar a definição da função \text{\ttfamily pgroupWinners}. O problema foi dividido em duas partes. A primeira consiste em obter a distribuição de probabilidade de cada conjunto de resultados dos jogos do grupo. Para fazer isso, aplica-se a função \text{\ttfamily pmatchResult~criteria} a todos os elementos da lista de jogos. Ou seja, a primeira parte do problema consiste na função \text{\ttfamily map~\char40{}pmatchResult~criteria\char41{}}. Para converter os resultados de uma lista de monádes para um monáde de lista, usa-se a função \text{\ttfamily multiProd}. Assim sendo, esta primeira parte é, na verdade, resolvida através da função \text{\ttfamily multiProd~\char46{}~map~\char40{}pmatchResult~criteria\char41{}}.
+
+A segunda parte consiste em, sabendo os resultados dos jogos, determinar os vencedores do grupo. Para isso, é necessário juntar as listas correspondentes a cada jogo numa só - usando, para isso, a função \text{\ttfamily concat} - e consolidar (\text{\ttfamily consolidate}) a lista, de forma a ficar com a pontuação de cada equipa. Finalmente, é necessário retornar os 2 melhores, utilizando, para isso, a função \text{\ttfamily best~2}. Como estamos a trabalhar num contexto monádico, é necessário utilizar a função \text{\ttfamily return} do monáde das distribuições de probabilidade para \textit{colocar} o resultado dentro desse monáde.
+
+De forma a combinar estas duas partes, utiliza-se o operador \text{\ttfamily \char62{}\char62{}\char61{}} de Haskell, para passar o resultado da primeira para a segunda. Assim sendo, o resultado é
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{pgroupWinners}\;\Varid{criteria}\mathrel{=}(\bind \Varid{return}\comp \Varid{best}\;\mathrm{2}\comp \Varid{consolidate}\comp \Varid{concat})\comp \Varid{multiProd}\comp \map \;(\Varid{pmatchResult}\;\Varid{criteria}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Finalmente, consideremos a função \text{\ttfamily pmatchResult}, que deve, para um dado encontro e uma função de probabilidade, retornar a probabilidade de cada resultado - sob a forma de pontuação de cada equipa. O primeiro passo é, naturalmente, aplicar a função de probabilidade ao encontro em questão. De seguida, deve converter-se em resultado em pontuações para cada equipa - que é o que faz a função \text{\ttfamily matchResult}. Assim sendo, esta função pode ser escrita, \textit{pointwise}, da seguinte forma:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\;\Varid{m}\mathrel{=}\Varid{criteria}\;\Varid{m}\bind (\Varid{return}\comp \Varid{matchResults}\;\Varid{m}){}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Convertendo esta função para uma definição \textit{pointfree} temos
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\mathrel{=}\uncurry{(\bind )}\comp \conj{\Varid{criteria}}{\Varid{return}\mathbin{`\Varid{multiComp}`}\Varid{matchResults}}{}\<[E]%
+\\
+\>[B]{}\Varid{multiComp}\mathrel{=}(\comp )\comp (\comp ){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 

@@ -1487,7 +1487,7 @@ present = sequence . (map ((>> await) . drawSq))
 \subsubsection*{Versão não probabilística}
 Gene de |consolidate'|:
 \begin{code}
-cgene = undefined
+cgene = either nil (uncurry addPoints)
 \end{code}
 Geração dos jogos da fase de grupos:
 \begin{code}
@@ -1566,12 +1566,44 @@ glt = (id -|- (splitInHalf . (uncurry (:)))) . out
 
 \subsubsection*{Versão probabilística}
 \begin{code}
-pinitKnockoutStage = undefined
+pinitKnockoutStage = return . initKnockoutStage
 
 pgroupWinners :: (Match -> Dist (Maybe Team)) -> [Match] -> Dist [Team]
-pgroupWinners = undefined
+pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
 
-pmatchResult = undefined
+pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)
+
+multiComp = (.) . (.)
+\end{code}
+
+A definição da função \verb|pinitKnockoutStage| é trivial quando feita à custa da função \verb|initKnockoutStage|. De facto, a \verb|pinitKnockoutStage| não depende em nada de probabilidades; a única diferença em relação à sua variante não monádica é o facto de ter de retornar um valor no monáde das probabilidades. Assim sendo, basta utilizar a função \verb|return| do monáde após aplicar a \verb|initKnockoutStage| original; ficando assim definida como
+
+\begin{code}
+pinitKnockoutStage = return . initKnockoutStage
+\end{code}
+
+
+Comecemos por derivar a definição da função \verb|pgroupWinners|. O problema foi dividido em duas partes. A primeira consiste em obter a distribuição de probabilidade de cada conjunto de resultados dos jogos do grupo. Para fazer isso, aplica-se a função \verb|pmatchResult criteria| a todos os elementos da lista de jogos. Ou seja, a primeira parte do problema consiste na função \verb|map (pmatchResult criteria)|. Para converter os resultados de uma lista de monádes para um monáde de lista, usa-se a função \verb|multiProd|. Assim sendo, esta primeira parte é, na verdade, resolvida através da função \verb|multiProd . map (pmatchResult criteria)|.
+
+A segunda parte consiste em, sabendo os resultados dos jogos, determinar os vencedores do grupo. Para isso, é necessário juntar as listas correspondentes a cada jogo numa só - usando, para isso, a função \verb|concat| - e consolidar (\verb|consolidate|) a lista, de forma a ficar com a pontuação de cada equipa. Finalmente, é necessário retornar os 2 melhores, utilizando, para isso, a função \verb|best 2|. Como estamos a trabalhar num contexto monádico, é necessário utilizar a função \verb|return| do monáde das distribuições de probabilidade para \textit{colocar} o resultado dentro desse monáde.
+
+De forma a combinar estas duas partes, utiliza-se o operador \verb|>>=| de Haskell, para passar o resultado da primeira para a segunda. Assim sendo, o resultado é
+
+\begin{code}
+pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
+\end{code}
+
+Finalmente, consideremos a função \verb|pmatchResult|, que deve, para um dado encontro e uma função de probabilidade, retornar a probabilidade de cada resultado - sob a forma de pontuação de cada equipa. O primeiro passo é, naturalmente, aplicar a função de probabilidade ao encontro em questão. De seguida, deve converter-se em resultado em pontuações para cada equipa - que é o que faz a função \verb|matchResult|. Assim sendo, esta função pode ser escrita, \textit{pointwise}, da seguinte forma:
+
+\begin{code}
+pmatchResult criteria m = criteria m >>= (return . matchResults m)
+\end{code}
+
+Convertendo esta função para uma definição \textit{pointfree} temos
+
+\begin{code}
+pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)
+multiComp = (.) . (.)
 \end{code}
 
 %----------------- Índice remissivo (exige makeindex) -------------------------%
