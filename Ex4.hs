@@ -183,9 +183,6 @@ pwinner = mbin f x >>= pknockoutStage
 
 cgene :: (Eq a, Num b) => Either () ((a,b),[(a,b)]) -> [(a,b)]
 cgene = either nil (uncurry addPoints)
-    where addPoints x []                    = [x]       --TODO: hylomorfismo?
-          addPoints x@(x1,x2) (y@(y1,y2):t) | x1 == y1  = (x1, x2 + y2) : t
-                                            | otherwise = y : addPoints x t
 
 pairup :: Eq b => [b] -> [(b, b)]
 pairup = concat . uncurry (zipWith zip) . split repeat (tail . suffixes)
@@ -220,6 +217,9 @@ teamResult t = maybe (t, 1) (cond (==t) (const (t, 3)) (const (t, 0)))
 --teamResult t Nothing   = (t, 1)
 --teamResult t (Just t1) | t1 == t   = (t, 3)
 --                       | otherwise = (t, 0)
+
+addPoints x = (collapse x) . (x:)
+collapse (x,y) list = (x, sum [b | (a,b) <- list, a == x]) : [(a,b) | (a,b) <- list, a /= x]
 
 matchResults :: Match -> Maybe Team -> [(Team, Int)]
 matchResults (t1, t2) = toList . (split (teamResult t1) (teamResult t2))
