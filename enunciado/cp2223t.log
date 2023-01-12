@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  8 JAN 2023 14:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  12 JAN 2023 18:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1049,7 +1049,7 @@ LaTeX Info: Redefining \addtolength on input line 81.
 
 Writing index file cp2223t.idx
 LaTeX Font Info:    Trying to load font information for OT1+FiraSans-LF on inpu
-t line 294.
+t line 295.
 (/usr/share/texmf-dist/tex/latex/fira/OT1FiraSans-LF.fd
 File: OT1FiraSans-LF.fd 2019/10/10 (autoinst) Font definitions for OT1/FiraSans
 -LF.
@@ -1057,30 +1057,30 @@ File: OT1FiraSans-LF.fd 2019/10/10 (autoinst) Font definitions for OT1/FiraSans
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <10> not availabl
 e
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 294.
+line 295.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 10.0pt on input line 294.
+(Font)              scaled to size 10.0pt on input line 295.
  (./cp2223t.aux)
 \openout1 = `cp2223t.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 294.
-LaTeX Font Info:    ... okay on input line 294.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 295.
+LaTeX Font Info:    ... okay on input line 295.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1118,7 +1118,7 @@ LaTeX Font Info:    ... okay on input line 294.
 
 \c@mv@tabular=\count357
 \c@mv@boldtabular=\count358
-Package hyperref Info: Link coloring ON on input line 294.
+Package hyperref Info: Link coloring ON on input line 295.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -1130,9 +1130,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count359
 )
-LaTeX Info: Redefining \ref on input line 294.
-LaTeX Info: Redefining \pageref on input line 294.
-LaTeX Info: Redefining \nameref on input line 294.
+LaTeX Info: Redefining \ref on input line 295.
+LaTeX Info: Redefining \pageref on input line 295.
+LaTeX Info: Redefining \nameref on input line 295.
 
 (./cp2223t.out) (./cp2223t.out)
 \@outlinefile=\write8
@@ -1162,101 +1162,101 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 294.
+ 295.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 294.
+ 295.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 294.
+ 295.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 294.
+ 295.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-94.
+95.
 
 (/usr/share/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 294.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 294.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 294.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 295.
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 2
-94.
+95.
 
 (/usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
-Package xypdf Info: Line width: 0.3999pt on input line 294.
+Package xypdf Info: Line width: 0.3999pt on input line 295.
 \c@lstlisting=\count366
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <17.28> not avail
 able
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 299.
+line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 17.28pt on input line 299.
+(Font)              scaled to size 17.28pt on input line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <17.28> not availa
 ble
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 299.
+line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 17.28pt on input line 299.
+(Font)              scaled to size 17.28pt on input line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <12> not availabl
 e
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 299.
+line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 12.0pt on input line 299.
+(Font)              scaled to size 12.0pt on input line 300.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 299.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 300.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 299.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 300.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 299.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/sl' in size <12> not availab
 le
 (Font)              Font shape `OT1/FiraSans-LF/book/sl' tried instead on input
- line 299.
+ line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/sl' in size <12> not avail
 able
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 299.
+ line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 12.0pt on input line 299.
+(Font)              scaled to size 12.0pt on input line 300.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <14.4> not availa
 ble
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 314.
+line 315.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 14.4pt on input line 314.
+(Font)              scaled to size 14.4pt on input line 315.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <14.4> not availab
 le
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 314.
+line 315.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 14.4pt on input line 314.
+(Font)              scaled to size 14.4pt on input line 315.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/it' in size <10> not availab
 le
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 318.
+ line 319.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 10.0pt on input line 318.
+(Font)              scaled to size 10.0pt on input line 319.
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1271,106 +1271,106 @@ LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <10> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 382.
+line 383.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 10.0pt on input line 382.
+(Font)              scaled to size 10.0pt on input line 383.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/sl' in size <10> not availab
 le
 (Font)              Font shape `OT1/FiraSans-LF/book/sl' tried instead on input
- line 387.
+ line 388.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/sl' in size <10> not avail
 able
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 387.
+ line 388.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 10.0pt on input line 387.
+(Font)              scaled to size 10.0pt on input line 388.
 \openout6 = `cp2223t.ptb'.
 
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <7.4> not availab
 le
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 417.
+line 418.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 7.4pt on input line 417.
+(Font)              scaled to size 7.4pt on input line 418.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <6> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 417.
+line 418.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 6.0pt on input line 417.
+(Font)              scaled to size 6.0pt on input line 418.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <8> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 419.
+line 420.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 8.0pt on input line 419.
+(Font)              scaled to size 8.0pt on input line 420.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 419.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 420.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 419.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 420.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/it' in size <8> not availabl
 e
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 419.
+ line 420.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 8.0pt on input line 419.
+(Font)              scaled to size 8.0pt on input line 420.
 \openout6 = `cp2223t.ptb'.
 
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/it' in size <5> not availabl
 e
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 436.
+ line 437.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 5.0pt on input line 436.
+(Font)              scaled to size 5.0pt on input line 437.
  <xymatrix 3x2
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 443.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 444.
 
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <5> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 443.
+line 444.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 5.0pt on input line 443.
+(Font)              scaled to size 5.0pt on input line 444.
 281>
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <8> not available
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 480.
+line 481.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 8.0pt on input line 480.
+(Font)              scaled to size 8.0pt on input line 481.
  [2]
 \openout6 = `cp2223t.ptb'.
 
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <9> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 495.
+line 496.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 9.0pt on input line 495.
+(Font)              scaled to size 9.0pt on input line 496.
 <cp2223t_media/tapete1.png, id=89, 486.81876pt x 486.81876pt>
 File: cp2223t_media/tapete1.png Graphic file (type png)
 <use cp2223t_media/tapete1.png>
-Package pdftex.def Info: cp2223t_media/tapete1.png  used on input line 540.
+Package pdftex.def Info: cp2223t_media/tapete1.png  used on input line 541.
 (pdftex.def)             Requested size: 86.49748pt x 86.49449pt.
 <cp2223t_media/tapete2.png, id=91, 486.81876pt x 486.81876pt>
 File: cp2223t_media/tapete2.png Graphic file (type png)
 <use cp2223t_media/tapete2.png>
-Package pdftex.def Info: cp2223t_media/tapete2.png  used on input line 541.
+Package pdftex.def Info: cp2223t_media/tapete2.png  used on input line 542.
 (pdftex.def)             Requested size: 86.49748pt x 86.49449pt.
 <cp2223t_media/tapete3.png, id=92, 486.81876pt x 486.81876pt>
 File: cp2223t_media/tapete3.png Graphic file (type png)
 <use cp2223t_media/tapete3.png>
-Package pdftex.def Info: cp2223t_media/tapete3.png  used on input line 542.
+Package pdftex.def Info: cp2223t_media/tapete3.png  used on input line 543.
 (pdftex.def)             Requested size: 86.49748pt x 86.49449pt.
 <cp2223t_media/tapete4.png, id=93, 486.81876pt x 486.81876pt>
 File: cp2223t_media/tapete4.png Graphic file (type png)
 <use cp2223t_media/tapete4.png>
-Package pdftex.def Info: cp2223t_media/tapete4.png  used on input line 543.
+Package pdftex.def Info: cp2223t_media/tapete4.png  used on input line 544.
 (pdftex.def)             Requested size: 86.49748pt x 86.49449pt.
 <cp2223t_media/tapete5.png, id=94, 486.81876pt x 486.81876pt>
 File: cp2223t_media/tapete5.png Graphic file (type png)
 <use cp2223t_media/tapete5.png>
-Package pdftex.def Info: cp2223t_media/tapete5.png  used on input line 544.
+Package pdftex.def Info: cp2223t_media/tapete5.png  used on input line 545.
 (pdftex.def)             Requested size: 86.49748pt x 86.49449pt.
 
 
@@ -1379,7 +1379,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <cp2223t_media/tapete_ex.png, id=96, 819.06pt x 819.06pt>
 File: cp2223t_media/tapete_ex.png Graphic file (type png)
 <use cp2223t_media/tapete_ex.png>
-Package pdftex.def Info: cp2223t_media/tapete_ex.png  used on input line 555.
+Package pdftex.def Info: cp2223t_media/tapete_ex.png  used on input line 556.
 (pdftex.def)             Requested size: 159.33821pt x 159.33487pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1404,13 +1404,13 @@ p2223t_media/tapete_ex.png>]
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <12> not available
 
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 698.
+line 699.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 12.0pt on input line 698.
+(Font)              scaled to size 12.0pt on input line 699.
 \openout6 = `cp2223t.ptb'.
 
 LaTeX Font Info:    Trying to load font information for TS1+FiraSans-LF on inpu
-t line 750.
+t line 751.
 
 (/usr/share/texmf-dist/tex/latex/fira/TS1FiraSans-LF.fd
 File: TS1FiraSans-LF.fd 2019/10/10 (autoinst) Font definitions for TS1/FiraSans
@@ -1419,13 +1419,13 @@ File: TS1FiraSans-LF.fd 2019/10/10 (autoinst) Font definitions for TS1/FiraSans
 LaTeX Font Info:    Font shape `TS1/FiraSans-LF/sl/n' in size <10> not availabl
 e
 (Font)              Font shape `TS1/FiraSans-LF/book/n' tried instead on input 
-line 750.
+line 751.
 LaTeX Font Info:    Font shape `TS1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 10.0pt on input line 750.
+(Font)              scaled to size 10.0pt on input line 751.
 <cp2223t_media/wcup2022.png, id=141, 2454.16875pt x 1385.175pt>
 File: cp2223t_media/wcup2022.png Graphic file (type png)
 <use cp2223t_media/wcup2022.png>
-Package pdftex.def Info: cp2223t_media/wcup2022.png  used on input line 757.
+Package pdftex.def Info: cp2223t_media/wcup2022.png  used on input line 758.
 (pdftex.def)             Requested size: 306.77034pt x 173.14645pt.
  [6]
 \openout6 = `cp2223t.ptb'.
@@ -1437,23 +1437,23 @@ Package pdftex.def Info: cp2223t_media/wcup2022.png  used on input line 757.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/sl' in size <7.4> not availa
 ble
 (Font)              Font shape `OT1/FiraSans-LF/book/sl' tried instead on input
- line 810.
+ line 811.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/sl' in size <7.4> not avai
 lable
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 810.
+ line 811.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 7.4pt on input line 810.
+(Font)              scaled to size 7.4pt on input line 811.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/sl' in size <6> not availabl
 e
 (Font)              Font shape `OT1/FiraSans-LF/book/sl' tried instead on input
- line 810.
+ line 811.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/sl' in size <6> not availa
 ble
 (Font)              Font shape `OT1/FiraSans-LF/book/it' tried instead on input
- line 810.
+ line 811.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
-(Font)              scaled to size 6.0pt on input line 810.
+(Font)              scaled to size 6.0pt on input line 811.
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1481,35 +1481,35 @@ LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/it' will be
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/sl/n' in size <20.74> not avail
 able
 (Font)              Font shape `OT1/FiraSans-LF/book/n' tried instead on input 
-line 975.
+line 976.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/book/n' will be
-(Font)              scaled to size 20.74pt on input line 975.
+(Font)              scaled to size 20.74pt on input line 976.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/b/n' in size <20.74> not availa
 ble
 (Font)              Font shape `OT1/FiraSans-LF/bold/n' tried instead on input 
-line 975.
+line 976.
 LaTeX Font Info:    Font shape `OT1/FiraSans-LF/bold/n' will be
-(Font)              scaled to size 20.74pt on input line 975.
+(Font)              scaled to size 20.74pt on input line 976.
 
 
-LaTeX Warning: Citation `Kn92' on page 9 undefined on input line 983.
+LaTeX Warning: Citation `Kn92' on page 9 undefined on input line 984.
 
 [9]
 
-LaTeX Warning: Citation `Ol18' on page 10 undefined on input line 1050.
+LaTeX Warning: Citation `Ol18' on page 10 undefined on input line 1051.
 
 <xymatrix 2x2 191>
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1083.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1084.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1083.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1084.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 1083.
+(hyperref)                removing `subscript' on input line 1084.
 
 
-LaTeX Warning: Citation `Ol18' on page 10 undefined on input line 1087.
+LaTeX Warning: Citation `Ol18' on page 10 undefined on input line 1088.
 
 \openout6 = `cp2223t.ptb'.
 
@@ -1518,7 +1518,7 @@ LaTeX Warning: Citation `Ol18' on page 10 undefined on input line 1087.
 
 
 
-LaTeX Warning: Citation `Ol18' on page 11 undefined on input line 1138.
+LaTeX Warning: Citation `Ol18' on page 11 undefined on input line 1139.
 
 \openout6 = `cp2223t.ptb'.
 
@@ -1533,7 +1533,7 @@ LaTeX Warning: Citation `Ol18' on page 11 undefined on input line 1138.
 
 
 
-LaTeX Warning: Citation `EK06' on page 12 undefined on input line 1233.
+LaTeX Warning: Citation `EK06' on page 12 undefined on input line 1234.
 
 \openout6 = `cp2223t.ptb'.
 
@@ -1585,15 +1585,11 @@ LaTeX Warning: Citation `EK06' on page 12 undefined on input line 1233.
 \openout6 = `cp2223t.ptb'.
 
  [15]
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
 <cp2223t_media/fIneficiente.png, id=271, 381.67593pt x 231.86626pt>
 File: cp2223t_media/fIneficiente.png Graphic file (type png)
 <use cp2223t_media/fIneficiente.png>
-Package pdftex.def Info: cp2223t_media/fIneficiente.png  used on input line 171
-2.
+Package pdftex.def Info: cp2223t_media/fIneficiente.png  used on input line 170
+7.
 (pdftex.def)             Requested size: 409.71692pt x 248.9117pt.
 
 
@@ -1602,149 +1598,109 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <cp2223t_media/fEficiente.png, id=272, 373.395pt x 237.88875pt>
 File: cp2223t_media/fEficiente.png Graphic file (type png)
 <use cp2223t_media/fEficiente.png>
-Package pdftex.def Info: cp2223t_media/fEficiente.png  used on input line 1719.
+Package pdftex.def Info: cp2223t_media/fEficiente.png  used on input line 1714.
 
 (pdftex.def)             Requested size: 409.71692pt x 261.03955pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
 [16]
 \openout6 = `cp2223t.ptb'.
 
  [17 <./cp2223t_media/fIneficiente.png (PNG copy)> <./cp2223t_media/fEficiente.
-png (PNG copy)>]
-\openout6 = `cp2223t.ptb'.
+png (PNG copy)>] <xymatrix 2x2
 
- <xymatrix 2x2
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1772.
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1762.
+191> <xymatrix 2x2
 
-191>
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
- <xymatrix 2x2
-
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1816.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1817.
 
 191> [18]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
-\openout6 = `cp2223t.ptb'.
 
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
  [][][][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
  [][] 
  []
 
 
-Overfull \hbox (10.25345pt too wide) in paragraph at lines 1877--1892
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
  [][] 
  []
 
-<xymatrix 2x2 191> [19]
+
+Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
+ [][] 
+ []
+
+<xymatrix 2x2 191> [19] <xymatrix 2x2 191> [20]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
- <xymatrix 2x2 191>
-\openout6 = `cp2223t.ptb'.
+ [21] <xymatrix 2x2
 
- [20]
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
- [21]
-\openout6 = `cp2223t.ptb'.
-
- <xymatrix 2x2
-
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 2101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2094.
 
 188>
 \openout6 = `cp2223t.ptb'.
 
-\openout6 = `cp2223t.ptb'.
 
- [22]
-\openout6 = `cp2223t.ptb'.
-
-
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2127--2140
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
  [][] 
  []
 
 
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2127--2140
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
  [][] 
  []
 
 
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2127--2140
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
  [][] 
  []
 
 
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2127--2140
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
  [][] 
  []
 
 
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2127--2140
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
  [][] 
  []
 
 
-Overfull \hbox (12.84409pt too wide) in paragraph at lines 2142--2143
+Overfull \hbox (12.84409pt too wide) in paragraph at lines 2129--2130
 []\OT1/FiraSans-LF/book/n/10 A defini[][]ao da fun[][]ao [] []e tri-vial quando
  feita []a custa da fun[][]ao [].
  []
 
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-
-Overfull \hbox (5.8029pt too wide) in paragraph at lines 2158--2163
- [][] 
- []
-
-\openout6 = `cp2223t.ptb'.
-
-\openout6 = `cp2223t.ptb'.
-
-(./cp2223t.ind [23] [24
+[22] (./cp2223t.ind [23] [24
 
 
 ])
@@ -1790,7 +1746,7 @@ b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
 /share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (24 pages, 765913 bytes).
+Output written on cp2223t.pdf (24 pages, 764677 bytes).
 PDF statistics:
  528 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams

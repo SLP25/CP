@@ -268,6 +268,7 @@
 \makeatother
 \EndFmtInput
 %
+
 \def\plus{\mathbin{\dagger}}
 \def\kcomp{\mathbin{\bullet}}
 %---------------------------------------------------------------------------
@@ -815,7 +816,7 @@ Comecemos então por definir a função \ensuremath{\Varid{genGroupStageMatches}
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{genGroupStageMatches}\mathbin{::}[\mskip1.5mu \Conid{Group}\mskip1.5mu]\to [\mskip1.5mu [\mskip1.5mu \Conid{Match}\mskip1.5mu]\mskip1.5mu]{}\<[E]%
 \\
-\>[B]{}\Varid{genGroupStageMatches}\mathrel{=}\map \;\Varid{generateMatches}{}\<[E]%
+\>[B]{}\Varid{genGroupStageMatches}\mathrel{=}\Varid{map}\;\Varid{generateMatches}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 onde
@@ -838,7 +839,7 @@ que, mediante um certo critério, calcula o resultado de um jogo, retornando \en
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{simulateGroupStage}\mathbin{::}[\mskip1.5mu [\mskip1.5mu \Conid{Match}\mskip1.5mu]\mskip1.5mu]\to [\mskip1.5mu [\mskip1.5mu \Conid{Team}\mskip1.5mu]\mskip1.5mu]{}\<[E]%
 \\
-\>[B]{}\Varid{simulateGroupStage}\mathrel{=}\map \;(\Varid{groupWinners}\;\Varid{gsCriteria}){}\<[E]%
+\>[B]{}\Varid{simulateGroupStage}\mathrel{=}\Varid{map}\;(\Varid{groupWinners}\;\Varid{gsCriteria}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 que simula a fase de grupos e dá como resultado a lista dos vencedores,
@@ -1248,11 +1249,11 @@ Este mónade é adequado à resolução de problemas de \emph{probabilidades e e
 \section{Código fornecido}\label{sec:codigo}
 
 \subsection*{Problema 1}
-Alguns testes para se validar a solução encontrada:
+Alguns testes para se validar a solução encontrada:map
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{test}\;\Varid{a}\;\Varid{b}\;\Varid{c}\mathrel{=}\map \;(\Varid{fbl}\;\Varid{a}\;\Varid{b}\;\Varid{c})\;\Varid{x}\equiv \map \;(\Varid{f}\;\Varid{a}\;\Varid{b}\;\Varid{c})\;\Varid{x}\;\mathbf{where}\;\Varid{x}\mathrel{=}[\mskip1.5mu \mathrm{1}\mathinner{\ldotp\ldotp}\mathrm{20}\mskip1.5mu]{}\<[E]%
+\>[B]{}\Varid{test}\;\Varid{a}\;\Varid{b}\;\Varid{c}\mathrel{=}\Varid{map}\;(\Varid{fbl}\;\Varid{a}\;\Varid{b}\;\Varid{c})\;\Varid{x}\equiv \Varid{map}\;(\Varid{f}\;\Varid{a}\;\Varid{b}\;\Varid{c})\;\Varid{x}\;\mathbf{where}\;\Varid{x}\mathrel{=}[\mskip1.5mu \mathrm{1}\mathinner{\ldotp\ldotp}\mathrm{20}\mskip1.5mu]{}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{test1}\mathrel{=}\Varid{test}\;\mathrm{1}\;\mathrm{2}\;\mathrm{3}{}\<[E]%
 \\
@@ -1491,7 +1492,7 @@ Critério para a simulação probabilística dos jogos da fase de grupos:
 \>[6]{}\mathbf{if}\;\Varid{abs}\;(r_1 \mathbin{-}r_2 )\mathbin{>}\mathrm{0.5}\;\mathbf{then}\;\mathsf{fmap}\;\Conid{Just}\;(\Varid{pkoCriteria}\;(s_1 ,s_2 ))\;\mathbf{else}\;\Varid{f}\;(s_1 ,s_2 ){}\<[E]%
 \\
 \>[B]{}\hsindent{3}{}\<[3]%
-\>[3]{}\Varid{f}\mathrel{=}\Conid{D}\comp ((\Conid{Nothing},\mathrm{0.5})\mathbin{:})\comp \map \;(\Conid{Just}\times(\mathbin{/}\mathrm{2}))\comp \Varid{unD}\comp \Varid{pkoCriteria}{}\<[E]%
+\>[3]{}\Varid{f}\mathrel{=}\Conid{D}\comp ((\Conid{Nothing},\mathrm{0.5})\mathbin{:})\comp \Varid{map}\;(\Conid{Just}\times(\mathbin{/}\mathrm{2}))\comp \Varid{unD}\comp \Varid{pkoCriteria}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Critério para a simulação probabilística dos jogos do mata-mata:
@@ -1516,9 +1517,9 @@ Versão probabilística da simulação da fase de grupos:\footnote{Faz-se ``trim
 \column{47}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
 \>[B]{}\Varid{psimulateGroupStage}\mathrel{=}\Varid{trim}\comp {}\<[31]%
-\>[31]{}\map \;(\Varid{pgroupWinners}\;\Varid{pgsCriteria}){}\<[E]%
+\>[31]{}\Varid{map}\;(\Varid{pgroupWinners}\;\Varid{pgsCriteria}){}\<[E]%
 \\
-\>[B]{}\Varid{trim}\mathrel{=}\Varid{top}\;\mathrm{5}\comp \Varid{sequence}\comp \map \;(\Varid{filterP}\comp \Varid{norm})\;{}\<[47]%
+\>[B]{}\Varid{trim}\mathrel{=}\Varid{top}\;\mathrm{5}\comp \Varid{sequence}\comp \Varid{map}\;(\Varid{filterP}\comp \Varid{norm})\;{}\<[47]%
 \>[47]{}\mathbf{where}{}\<[E]%
 \\
 \>[B]{}\hsindent{4}{}\<[4]%
@@ -1528,7 +1529,7 @@ Versão probabilística da simulação da fase de grupos:\footnote{Faz-se ``trim
 \>[4]{}\Varid{top}\;\Varid{n}\mathrel{=}\Varid{vec2Dist}\comp \Varid{take}\;\Varid{n}\comp \Varid{reverse}\comp \Varid{presort}\;\p2\comp \Varid{unD}{}\<[E]%
 \\
 \>[B]{}\hsindent{4}{}\<[4]%
-\>[4]{}\Varid{vec2Dist}\;\Varid{x}\mathrel{=}\Conid{D}\;[\mskip1.5mu (\Varid{a},\Varid{n}\mathbin{/}\Varid{t})\mid (\Varid{a},\Varid{n})\leftarrow \Varid{x}\mskip1.5mu]\;\mathbf{where}\;\Varid{t}\mathrel{=}\Varid{sum}\;(\map \;\p2\;\Varid{x}){}\<[E]%
+\>[4]{}\Varid{vec2Dist}\;\Varid{x}\mathrel{=}\Conid{D}\;[\mskip1.5mu (\Varid{a},\Varid{n}\mathbin{/}\Varid{t})\mid (\Varid{a},\Varid{n})\leftarrow \Varid{x}\mskip1.5mu]\;\mathbf{where}\;\Varid{t}\mathrel{=}\Varid{sum}\;(\Varid{map}\;\p2\;\Varid{x}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Versão mais eficiente da \ensuremath{\Varid{pwinner}} dada no texto principal, para diminuir o tempo de cada
@@ -1555,11 +1556,11 @@ Auxiliares:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{best}\;\Varid{n}\mathrel{=}\map \;\p1\comp \Varid{take}\;\Varid{n}\comp \Varid{reverse}\comp \Varid{presort}\;\p2{}\<[E]%
+\>[B]{}\Varid{best}\;\Varid{n}\mathrel{=}\Varid{map}\;\p1\comp \Varid{take}\;\Varid{n}\comp \Varid{reverse}\comp \Varid{presort}\;\p2{}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{consolidate}\mathbin{::}(\Conid{Num}\;\Varid{d},\Conid{Eq}\;\Varid{d},\Conid{Eq}\;\Varid{b})\Rightarrow [\mskip1.5mu (\Varid{b},\Varid{d})\mskip1.5mu]\to [\mskip1.5mu (\Varid{b},\Varid{d})\mskip1.5mu]{}\<[E]%
 \\
-\>[B]{}\Varid{consolidate}\mathrel{=}\map \;(\Varid{id}\times\Varid{sum})\comp \Varid{collect}{}\<[E]%
+\>[B]{}\Varid{consolidate}\mathrel{=}\Varid{map}\;(\Varid{id}\times\Varid{sum})\comp \Varid{collect}{}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{collect}\mathbin{::}(\Conid{Eq}\;\Varid{a},\Conid{Eq}\;\Varid{b})\Rightarrow [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]\to [\mskip1.5mu (\Varid{a},[\mskip1.5mu \Varid{b}\mskip1.5mu])\mskip1.5mu]{}\<[E]%
 \\
@@ -1606,23 +1607,34 @@ Valoriza-se a escrita de \emph{pouco} código que corresponda a soluções
 simples e elegantes.
 
 \subsection*{Problema 1}
-Por simplicidade, consideremos a função
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{f'}\mathrel{=}\Varid{f}\;\Varid{a}\;\Varid{b}\;\Varid{c}{}\<[E]%
+\>[B]{}\Varid{k}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;((\Varid{x},\Varid{y}),\Varid{z})\mathrel{=}\Varid{a}\mathbin{*}\Varid{y}\mathbin{+}\Varid{b}\mathbin{*}\Varid{x}\mathbin{+}\Varid{c}\mathbin{*}\Varid{z}{}\<[E]%
+\\
+\>[B]{}\Varid{loop}\;\Varid{a}\;\Varid{b}\;\Varid{c}\mathrel{=}\conj{\conj{\p2\comp \p1}{\Varid{k}\;\Varid{a}\;\Varid{b}\;\Varid{c}}}{\p1\comp \p1}{}\<[E]%
+\\
+\>[B]{}\Varid{initial}\mathrel{=}((\mathrm{1},\mathrm{1}),\mathrm{0}){}\<[E]%
+\\
+\>[B]{}\Varid{wrap}\mathrel{=}\p2{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
+
+Por simplicidade, consideremos a função
+
+%\begin{code}
+%f'' = f a b c
+%\end{code} 
 
 como uma abreviatura da função original que se pretende otimizar. Consideremos, de igual modo, as seguintes funções
 
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{g}\;\Varid{n}\mathrel{=}\Varid{f'}\;(\Varid{n}\mathbin{+}\mathrm{1}){}\<[E]%
+\>[B]{}\Varid{g'}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}\mathrel{=}\Varid{f}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;(\Varid{n}\mathbin{+}\mathrm{1}){}\<[E]%
 \\
-\>[B]{}\Varid{h}\;\Varid{n}\mathrel{=}\Varid{g}\;(\Varid{n}\mathbin{+}\mathrm{1}){}\<[E]%
+\>[B]{}\Varid{h'}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}\mathrel{=}\Varid{g'}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;(\Varid{n}\mathbin{+}\mathrm{1}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1631,13 +1643,13 @@ Destas definições imediatamente segue que
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{g}\;\mathrm{0}\mathrel{=}\Varid{f'}\;\mathrm{1}\mathrel{=}\mathrm{1}{}\<[E]%
+\>[B]{}\Varid{g}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
-\>[B]{}\Varid{g}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{h}\;\Varid{n}{}\<[E]%
+\>[B]{}\Varid{g}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{h}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}{}\<[E]%
 \\
-\>[B]{}\Varid{h}\;\mathrm{0}\mathrel{=}\Varid{g}\;\mathrm{1}\mathrel{=}\Varid{f'}\;\mathrm{2}\mathrel{=}\mathrm{1}{}\<[E]%
+\>[B]{}\Varid{h}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\mathrm{0}\mathrel{=}\mathrm{1}{}\<[E]%
 \\
-\>[B]{}\Varid{h}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{g}\;(\Varid{n}\mathbin{+}\mathrm{2})\mathrel{=}\Varid{f'}\;(\Varid{n}\mathbin{+}\mathrm{3})\mathrel{=}\Varid{a}\mathbin{*}\Varid{f'}\;(\Varid{n}\mathbin{+}\mathrm{2})\mathbin{+}\Varid{b}\mathbin{*}\Varid{f'}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathbin{+}\Varid{c}\mathbin{*}\Varid{f'}\;\Varid{n}\mathrel{=}\Varid{a}\mathbin{*}\Varid{h}\;\Varid{n}\mathbin{+}\Varid{b}\mathbin{*}\Varid{g}\;\Varid{n}\mathbin{+}\Varid{c}\mathbin{*}\Varid{f'}\;\Varid{n}{}\<[E]%
+\>[B]{}\Varid{h}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;(\Varid{n}\mathbin{+}\mathrm{1})\mathrel{=}\Varid{a}\mathbin{*}\Varid{h}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}\mathbin{+}\Varid{b}\mathbin{*}\Varid{g}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}\mathbin{+}\Varid{c}\mathbin{*}\Varid{f'}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;\Varid{n}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 .
@@ -1680,26 +1692,9 @@ Estas três funções são mutuamente recursivas. Deste modo, tem-se que
 
 Logo, conclui-se que
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{f}\;\Varid{a}\;\Varid{b}\;\Varid{c}\mathrel{=}\p2\comp \for{\conj{\conj{\p2\comp \p1}{\Varid{k}\;\Varid{a}\;\Varid{b}\;\Varid{c}}}{\p1\comp \p1}}\ {\underline{((\mathrm{1},\mathrm{1}),\mathrm{0})}}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
-
-Funções auxiliares pedidas:
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{k}\;\Varid{a}\;\Varid{b}\;\Varid{c}\;((\Varid{x},\Varid{y}),\Varid{z})\mathrel{=}\Varid{a}\mathbin{*}\Varid{y}\mathbin{+}\Varid{b}\mathbin{*}\Varid{x}\mathbin{+}\Varid{c}\mathbin{*}\Varid{z}{}\<[E]%
-\\
-\>[B]{}\Varid{loop}\mathrel{=}\conj{\conj{\p2\comp \p1}{\Varid{k}\;\Varid{a}\;\Varid{b}\;\Varid{c}}}{\p1\comp \p1}{}\<[E]%
-\\
-\>[B]{}\Varid{initial}\mathrel{=}\underline{(\mathrm{1},\mathrm{1}),\mathrm{0}}{}\<[E]%
-\\
-\>[B]{}\Varid{wrap}\mathrel{=}\p2{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%f a b c = p2 . for (split (split (p2 . p1) (k a b c)) (p1 . p1)) (const (((1,1), 0)))
+%\end{code}
 
 \subsubsection*{Comparação de desempenho}
 
@@ -1731,14 +1726,29 @@ Gene de \ensuremath{\Varid{tax}}:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{gene}\mathrel{=}((\Varid{id})+(\Varid{id}\times((\Varid{groupBy}\;\underline{\Varid{canTrim}})\comp (\lambda \Varid{verb}\mid \map \mid \Varid{trim}))))\comp \Varid{out}{}\<[E]%
+\>[B]{}\Varid{gene}\mathrel{=}((\Varid{id})+(\Varid{id}\times((\Varid{groupBy}\;\underline{\Varid{canTrim}})\comp (\Varid{map}\;\Varid{trim'}))))\comp \Varid{out}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Função de pós-processamento:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{post}\mathrel{=}\llparenthesis\, \alt{\Varid{singl}\comp \Varid{singl}}{(\uncurry{\cdot }\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat})}\,\rrparenthesis_\textit{\tiny Exp}{}\<[E]%
+\>[B]{}\Varid{post}\mathrel{=}\llparenthesis\, \alt{\Varid{singl}\comp \Varid{singl}}{\uncurry{\Varid{map}}\comp ((\mathbin{:})\times\Varid{concat})}\,\rrparenthesis_\textit{\tiny Exp}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Funções Auxiliares:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{29}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{trim'}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\Varid{r})\mathrel{=}\Varid{r}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{canTrim}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:\char95 })\mathrel{=}\Conid{True}{}\<[E]%
+\\
+\>[B]{}\Varid{canTrim}\;\anonymous {}\<[29]%
+\>[29]{}\mathrel{=}\Conid{False}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1758,7 +1768,7 @@ Desenhando o diagrama do anamorfismo:
           \ar[u]_-{\ensuremath{\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}}}
 &
      \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times \ensuremath{\Conid{String}}^{*^{*}}
-          \ar[u]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\map \;\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}))}}
+          \ar[u]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\lambda \Varid{map}\;\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}))}}
 }
 \end{eqnarray*}
 
@@ -1772,27 +1782,18 @@ Deste modo, começa-se por um \text{\ttfamily map~trim} à lista inicial. A fun�
 
 Assim sendo, o gene do anamorfismo é definido por
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{gene}\mathrel{=}((\Varid{id})+(\Varid{id}\times((\Varid{groupBy}\;\underline{\Varid{canTrim}})\comp (\lambda \Varid{verb}\mid \map \mid \Varid{trim}))))\comp \Varid{out}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+% \begin{code}
+% gene = ((id) -|- ( id >< ((groupBy (const canTrim)) . (map trim)))) . out
+% \end{code}
 
 com as seguintes funções auxiliares
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{29}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{trim}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\Varid{r})\mathrel{=}\Varid{r}{}\<[E]%
-\\[\blanklineskip]%
-\>[B]{}\Varid{canTrim}\;(\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:}\text{\ttfamily '~'}\mathbin{:\char95 })\mathrel{=}\Conid{True}{}\<[E]%
-\\
-\>[B]{}\Varid{canTrim}\;\anonymous {}\<[29]%
-\>[29]{}\mathrel{=}\Conid{False}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%trim (' ':' ':' ':' ':r) = r
+%
+%canTrim (' ':' ':' ':' ':_) = True
+%canTrim _                   = False
+%\end{code}
 
 \subsubsection*{post}
 
@@ -1807,7 +1808,7 @@ Esta operação pode ser implementada como um catamorfismo sobre árvores de exp
            \ar[r]_-{\ensuremath{\mathsf{out}_{\tiny\ \textit{Exp}}}}
 &
     \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times (\ensuremath{\Conid{Exp}\;\Conid{String}\;\Conid{String}})^{*}
-           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\map \;\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}))}}
+           \ar[d]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\Varid{map}\;\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}))}}
 \\
      \ensuremath{\Conid{String}}^{*^{*}}
 &
@@ -1823,36 +1824,22 @@ Com isto, basta apenas definir o gene do catamorfismo. Tendo em conta o facto da
 
 No caso recursivo, recebe-se o elemento atual e o resultado das chamadas recursivas para os filhos. Aí, concatenam-se todos os resultados recursivos na mesma lista (para manter a noção de tabela) e, de seguida, adiciona-se o elemento à cabeça de cada uma dessas listas. Em notação \textit{pointwise}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\lambda \Varid{verb}\mid \map \mid (\Varid{s}\mathbin{:})\mathbin{\$}\Varid{concat}\;\Varid{l}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+% map (s:) (concat l)
+%\end{code}
 
 Passando para \textit{pointfree}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}(\uncurry{\cdot }\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+% (uncurry map) . ((:) >< concat)
+%\end{code}
 
 Juntando tudo, temos a definição do gene e da função \text{\ttfamily post}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{41}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{post}\mathrel{=}\llparenthesis\, \Varid{g}\,\rrparenthesis_\textit{\tiny Exp}{}\<[E]%
-\\
-\>[B]{}\Varid{g}\mathrel{=}\alt{\Varid{singl}\comp \Varid{singl}}{(\uncurry{\cdot }{}\<[41]%
-\>[41]{}\lambda \Varid{verb}\mid \map \mid )\comp ((\mathbin{:})\times\Varid{concat})}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
-
-
+%\begin{code}
+%post = cataExp g
+%g = either (singl . singl) ((uncurry    map) . ((:) >< concat))
+%\end{code}
 
 \subsection*{Problema 3}
 \begin{hscode}\SaveRestoreHook
@@ -1866,9 +1853,9 @@ Juntando tudo, temos a definição do gene e da função \text{\ttfamily post}:
 \\[\blanklineskip]%
 \>[B]{}\Varid{gr2l}\mathrel{=}\Varid{concat}\comp \Varid{cons}\comp (\Varid{singl}\times\Varid{id}){}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{carpets}\mathrel{=}\map \;(\Varid{sierpinski}\comp \conj{\underline{\Varid{defaultSquare}}}{\Varid{id}})\;[\mskip1.5mu \mathrm{0}\mathinner{\ldotp\ldotp}\Varid{n}\mskip1.5mu]{}\<[E]%
+\>[B]{}\Varid{carpets}\;\Varid{n}\mathrel{=}\Varid{map}\;(\Varid{sierpinski}\comp \conj{\underline{\Varid{defaultSquare}}}{\Varid{id}})\;[\mskip1.5mu \mathrm{0}\mathinner{\ldotp\ldotp}\Varid{n}\mskip1.5mu]{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{present}\mathrel{=}\Varid{sequence}\comp (\map \;((\sequ \Varid{await})\comp \Varid{drawSq})){}\<[E]%
+\>[B]{}\Varid{present}\mathrel{=}\Varid{sequence}\comp (\Varid{map}\;((\sequ \Varid{await})\comp \Varid{drawSq})){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1878,9 +1865,9 @@ Funções auxiliares:
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{5}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{middleSquare}\mathrel{=}\conj{\uncurry{\Varid{addTup}}\comp (\Varid{id}\times\Varid{dup})}{\p2}\comp (\Varid{id}\times(\mathbin{/}\mathrm{3})){}\<[E]%
+\>[B]{}\Varid{middleSquare}\mathrel{=}\conj{\uncurry{\Varid{addTup}}\comp (\Varid{id}\times\Varid{\Conid{Cp}.dup})}{\p2}\comp (\Varid{id}\times(\mathbin{/}\mathrm{3})){}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{sideSquares}\;(\Varid{xy},\Varid{l})\mathrel{=}\map \;\conj{(\Varid{addTup}\;\Varid{xy})\comp (\Varid{scaleTup}\;\Varid{l'})}{\underline{\Varid{l'}}}\;[\mskip1.5mu (\mathrm{1},\mathrm{2}),(\mathrm{2},\mathrm{2}),(\mathrm{2},\mathrm{1}),(\mathrm{2},\mathrm{0}),(\mathrm{1},\mathrm{0}),(\mathrm{0},\mathrm{0}),(\mathrm{0},\mathrm{1}),(\mathrm{0},\mathrm{2})\mskip1.5mu]{}\<[E]%
+\>[B]{}\Varid{sideSquares}\;(\Varid{xy},\Varid{l})\mathrel{=}\Varid{map}\;\conj{(\Varid{addTup}\;\Varid{xy})\comp (\Varid{scaleTup}\;\Varid{l'})}{\underline{\Varid{l'}}}\;[\mskip1.5mu (\mathrm{1},\mathrm{2}),(\mathrm{2},\mathrm{2}),(\mathrm{2},\mathrm{1}),(\mathrm{2},\mathrm{0}),(\mathrm{1},\mathrm{0}),(\mathrm{0},\mathrm{0}),(\mathrm{0},\mathrm{1}),(\mathrm{0},\mathrm{2})\mskip1.5mu]{}\<[E]%
 \\
 \>[B]{}\hsindent{5}{}\<[5]%
 \>[5]{}\mathbf{where}\;\Varid{l'}\mathrel{=}\Varid{l}\mathbin{/}\mathrm{3}{}\<[E]%
@@ -1888,6 +1875,8 @@ Funções auxiliares:
 \>[B]{}\Varid{addTup}\;(\Varid{a},\Varid{b})\;(\Varid{c},\Varid{d})\mathrel{=}(\Varid{a}\mathbin{+}\Varid{c},\Varid{b}\mathbin{+}\Varid{d}){}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{scaleTup}\;\Varid{a}\;(\Varid{b},\Varid{c})\mathrel{=}(\Varid{a}\mathbin{*}\Varid{b},\Varid{a}\mathbin{*}\Varid{c}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{defaultSquare}\mathrel{=}((\mathrm{0},\mathrm{0}),\mathrm{32}){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -1915,12 +1904,9 @@ Com isto, determina-se o tipo de \text{\ttfamily gsq}. O primeiro elemento do pa
 
 Isto motiva a utilização do funtor dos naturais. Isso justifica o primeiro elemento da composição de funções que é a função \text{\ttfamily gsq}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}(\Varid{id}\times\Varid{outNat}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+% (id >< outNat)
+%\end{code}
 
 Com isto, preserva-se o quadrado, mas diminui-se o natural numa unidade, possibilitando também a utilização de um \text{\ttfamily either} para separar o caso de paragem dos restantes casos.
 
@@ -1932,22 +1918,15 @@ O segundo caso é bastante mais complicado, e, também por isso, mais interessan
 
 Sumariando, pretende-se pegar no par quadrado / número, calcular todos os subquadrados, e, em paralelo repetir o valor inteiro, juntando no fim essas listas. Isso é expresso pela expressão
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\uncurry{\Varid{zip}}\comp (\Varid{sideSquares}\times\Varid{repeat}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
-.
+%\begin{code}
+% (uncurry zip) . (sideSquares >< repeat)
+%\end{code}.
 
 Passemos, agora, para o lado esquerdo do \text{\ttfamily split}, que devolve o quadrado que não será mais dividido. Este é bastante simples, basta extrair o primeiro elemento do par (o quadrado), e aplicar-lhe a função auxiliar \text{\ttfamily middleSquare}, que calcular o quadrado que deve ficar \textit{no meio}. Assim sendo, o lado esquerdo corresponde a 
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}(\Varid{middleSquare}\comp \p1){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+% (middleSquare . p1)
+%\end{code}
 
 \subsubsection*{\text{\ttfamily gr2l}}
 
@@ -1976,12 +1955,9 @@ Este último passo é efetuado trivialmente pela função \text{\ttfamily concat
 
 Assim sendo, a função \text{\ttfamily gr2l} é a composição de todas estas funções:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{gr2l}\mathrel{=}\Varid{concat}\comp \Varid{cons}\comp (\Varid{singl}\times\Varid{id}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%gr2l = concat . cons . (singl >< id)
+%\end{code}
 
 \subsubsection*{carpets}
 
@@ -1991,23 +1967,17 @@ Para isso, pode-se aproveitar a função \text{\ttfamily sierpinski}, que recebe
 
 Pretende aplicar-se, então, a função \text{\ttfamily sierpinski} com todos os limites de profundidade de 0 a $n$ (em que $n$ é o parâmetro de \text{\ttfamily carpets}). Isso motiva a aplicar um \text{\ttfamily map} da função \text{\ttfamily sierpinski} à lista \text{\ttfamily \char91{}0\char46{}\char46{}n\char93{}}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{carpets}\;\Varid{n}\mathrel{=}\map \;(\Varid{sierpinski}\comp \mathbin{???})\;[\mskip1.5mu \mathrm{0}\mathinner{\ldotp\ldotp}\Varid{n}\mskip1.5mu]{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%carpets n = map (sierpinski . something) [0..n]
+%\end{code}
 
 No entanto, não é possível aplicar a função \text{\ttfamily sierpinski} a um inteiro. De facto, a função, como referido anteriormente, recebe um par. Esse inteiro deve ser passado à função como segundo elemento do par, sendo que o primeiro elemento é independente desse valor, sendo sempre o mesmo (expresso pela função \text{\ttfamily defaultSquare}). Isto motiva a utilização de um \text{\ttfamily split}, em que do lado direito se aplica a função identidade, e do lado esquerdo a constante \text{\ttfamily defaultSquare}.
 
 Assim chega-se à definição final de \text{\ttfamily carpets}:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{carpets}\;\Varid{n}\mathrel{=}\map \;(\Varid{sierpinski}\comp \conj{\underline{\Varid{defaultSquare}}}{\Varid{id}})\;[\mskip1.5mu \mathrm{0}\mathinner{\ldotp\ldotp}\Varid{n}\mskip1.5mu]{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n]
+%\end{code}
 
 \subsubsection*{present}
 
@@ -2020,12 +1990,9 @@ O primeiro passo será sempre desenhar: por isso a função \text{\ttfamily draw
 
 No entanto, o tipo de retorno desta solução é \text{\ttfamily \char91{}IO~\char40{}\char41{}\char93{}} e não \text{\ttfamily IO~\char91{}\char40{}\char41{}\char93{}}. Para resolver este problema, basta adicionar uma chamada à função \text{\ttfamily sequence}, que transforma uma lista de monades num monade de listas. Combinando tudo:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{present}\mathrel{=}\Varid{sequence}\comp (\map \;((\sequ \Varid{await})\comp \Varid{drawSq})){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%present = sequence . (map ((>> await) . drawSq))
+%\end{code}
 
 
 \subsection*{Problema 4}
@@ -2034,7 +2001,9 @@ Gene de \ensuremath{\Varid{consolidate'}}:
 \begin{hscode}\SaveRestoreHook
 \column{B}{@{}>{\hspre}l<{\hspost}@{}}%
 \column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{cgene}\mathrel{=}\bot {}\<[E]%
+\>[B]{}\Varid{cgene}\mathbin{::}(\Conid{Eq}\;\Varid{a},\Conid{Num}\;\Varid{b})\Rightarrow ()+((\Varid{a},\Varid{b}),[\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu])\to [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]{}\<[E]%
+\\
+\>[B]{}\Varid{cgene}\mathrel{=}\alt{\Varid{nil}}{\uncurry{\Varid{addPoints}}}{}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 Geração dos jogos da fase de grupos:
@@ -2047,11 +2016,38 @@ Geração dos jogos da fase de grupos:
 \\[\blanklineskip]%
 \>[B]{}\Varid{glt}\mathrel{=}(\Varid{id}+(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}))\comp \Varid{out}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{matchResults}\mathrel{=}\overline{\Varid{cons}\comp (\Varid{tr}\times\Varid{singl}\comp \Varid{tr})\comp \conj{\p1\times\Varid{id}}{\p2\times\Varid{id}}}{}\<[E]%
+\>[B]{}\Varid{matchResults}\mathrel{=}\overline{\Varid{cons}\comp (\Varid{tra}\times\Varid{singl}\comp \Varid{tra})\comp \conj{\p1\times\Varid{id}}{\p2\times\Varid{id}}}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Funções auxiliares:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{16}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{tra}\mathrel{=}\uncurry{\Varid{teamResult}}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{tr}\mathrel{=}\uncurry{\Varid{teamResult}}{}\<[E]%
+\>[B]{}\Varid{splitInHalf}\;\Varid{l}\mathrel{=}\conj{\Varid{take}\;\Varid{half}}{\Varid{drop}\;\Varid{half}}\;\Varid{l}{}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}\mathbf{where}\;\Varid{half}\mathrel{=}(\length \;\Varid{l})\mathbin{\Varid{`div`}}\mathrm{2}{}\<[E]%
 \\[\blanklineskip]%
-\>[B]{}\Varid{teamResult}\;\Varid{t}\mathrel{=}\Varid{maybe}\;(\Varid{t},\mathrm{1})\;(\Varid{cond}\;(\equiv \Varid{t})\;\underline{\Varid{t},\mathrm{3}}\;\underline{\Varid{t},\mathrm{0}}){}\<[E]%
+\>[B]{}\Varid{teamResult}\;\Varid{t}\mathrel{=}\Varid{maybe}\;(\Varid{t},\mathrm{1})\;\mcond{\equiv \Varid{t}}{\underline{\Varid{t},\mathrm{3}}}{\underline{\Varid{t},\mathrm{0}}}{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{addPoints}\mathbin{::}(\Conid{Eq}\;\Varid{a},\Conid{Num}\;\Varid{b})\Rightarrow (\Varid{a},\Varid{b})\to [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]\to [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]{}\<[E]%
+\\
+\>[B]{}\Varid{addPoints}\;\Varid{x}\mathrel{=}{}\<[16]%
+\>[16]{}(\Varid{\Conid{Main}.collapse}\;\Varid{x})\comp (\Varid{x}\mathbin{:}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{collapse}\mathbin{::}(\Conid{Eq}\;\Varid{a},\Conid{Num}\;\Varid{b})\Rightarrow (\Varid{a},\Varid{b})\to [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]\to [\mskip1.5mu (\Varid{a},\Varid{b})\mskip1.5mu]{}\<[E]%
+\\
+\>[B]{}\Varid{collapse}\;(\Varid{x},\Varid{y})\;\Varid{list}\mathrel{=}(\Varid{x},\Varid{sum}\;[\mskip1.5mu \Varid{b}\mid (\Varid{a},\Varid{b})\leftarrow \Varid{list},\Varid{a}\equiv \Varid{x}\mskip1.5mu])\mathbin{:}[\mskip1.5mu (\Varid{a},\Varid{b})\mid (\Varid{a},\Varid{b})\leftarrow \Varid{list},\Varid{a}\not\equiv \Varid{x}\mskip1.5mu]{}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{toList}\mathrel{=}\Varid{cons}\comp (\Varid{id}\times\Varid{singl}){}\<[E]%
+\\[\blanklineskip]%
+\>[B]{}\Varid{multiProd}\mathrel{=}\Varid{foldr}\;(\Varid{joinWith}\;(\mathbin{:}))\;(\Varid{return}\;[\mskip1.5mu \mskip1.5mu]){}\<[E]%
 \ColumnHook
 \end{hscode}\resethooks
 
@@ -2068,12 +2064,9 @@ Inicialmente, partiu-se o problema em duas partes mais pequenas. A primeira cons
 
 A função \text{\ttfamily matchResults} é do tipo \text{\ttfamily Match~\char45{}\char62{}~Maybe~Team~\char45{}\char62{}~\char91{}\char40{}Team\char44{}~Int\char41{}\char93{}}. Em primeiro lugar, esta função vai ser \textit{uncurried} para receber um par. Em segundo lugar, para obter os dados para esta função, basta aplicar um \text{\ttfamily split} (visto tratar-se de uma função que recebe um par), em que uma das funções é a identidade (porque pretendemos passar o jogo que recebemos, sem modificações), e a outra é a função que calcula o resultado do jogo, que foi recebida como argumento (\text{\ttfamily f}). Assim sendo, a função \text{\ttfamily matchResult} é definida por
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{matchResult}\;\Varid{f}\mathrel{=}\uncurry{\Varid{matchResults}}\comp \conj{\Varid{id}}{\Varid{f}}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%matchResult f = uncurry matchResults . split id f
+%\end{code}
 
 Passemos, agora, à primeira parte do problema: a função \text{\ttfamily matchResults}.
 
@@ -2107,21 +2100,15 @@ Após aplicar o funtor, é necessário definir ambos os casos da soma. Caso a li
 
 Assim sendo, o lado direito da soma é
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%(splitInHalf . (uncurry (:)))
+%\end{code}
 
 e o gene \text{\ttfamily glt}
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{glt}\mathrel{=}(\Varid{id}+(\Varid{splitInHalf}\comp \uncurry{(\mathbin{:})}))\comp \Varid{out}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+%\end{code}
 
 \subsubsection*{Versão probabilística}
 \begin{hscode}\SaveRestoreHook
@@ -2131,7 +2118,7 @@ e o gene \text{\ttfamily glt}
 \\[\blanklineskip]%
 \>[B]{}\Varid{pgroupWinners}\mathbin{::}(\Conid{Match}\to \fun{Dist}\;(\Conid{Maybe}\;\Conid{Team}))\to [\mskip1.5mu \Conid{Match}\mskip1.5mu]\to \fun{Dist}\;[\mskip1.5mu \Conid{Team}\mskip1.5mu]{}\<[E]%
 \\
-\>[B]{}\Varid{pgroupWinners}\;\Varid{criteria}\mathrel{=}(\bind \Varid{return}\comp \Varid{best}\;\mathrm{2}\comp \Varid{consolidate}\comp \Varid{concat})\comp \Varid{multiProd}\comp \map \;(\Varid{pmatchResult}\;\Varid{criteria}){}\<[E]%
+\>[B]{}\Varid{pgroupWinners}\;\Varid{criteria}\mathrel{=}(\bind \Varid{return}\comp \Varid{best}\;\mathrm{2}\comp \Varid{consolidate}\comp \Varid{concat})\comp \Varid{multiProd}\comp \Varid{map}\;(\Varid{pmatchResult}\;\Varid{criteria}){}\<[E]%
 \\[\blanklineskip]%
 \>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\mathrel{=}\uncurry{(\bind )}\comp \conj{\Varid{criteria}}{\Varid{return}\mathbin{`\Varid{multiComp}`}\Varid{matchResults}}{}\<[E]%
 \\[\blanklineskip]%
@@ -2141,12 +2128,9 @@ e o gene \text{\ttfamily glt}
 
 A definição da função \text{\ttfamily pinitKnockoutStage} é trivial quando feita à custa da função \text{\ttfamily initKnockoutStage}. De facto, a \text{\ttfamily pinitKnockoutStage} não depende em nada de probabilidades; a única diferença em relação à sua variante não monádica é o facto de ter de retornar um valor no monáde das probabilidades. Assim sendo, basta utilizar a função \text{\ttfamily return} do monáde após aplicar a \text{\ttfamily initKnockoutStage} original; ficando assim definida como
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pinitKnockoutStage}\mathrel{=}\Varid{return}\comp \Varid{initKnockoutStage}{}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%pinitKnockoutStage = return . initKnockoutStage
+%\end{code}
 
 
 Comecemos por derivar a definição da função \text{\ttfamily pgroupWinners}. O problema foi dividido em duas partes. A primeira consiste em obter a distribuição de probabilidade de cada conjunto de resultados dos jogos do grupo. Para fazer isso, aplica-se a função \text{\ttfamily pmatchResult~criteria} a todos os elementos da lista de jogos. Ou seja, a primeira parte do problema consiste na função \text{\ttfamily map~\char40{}pmatchResult~criteria\char41{}}. Para converter os resultados de uma lista de monádes para um monáde de lista, usa-se a função \text{\ttfamily multiProd}. Assim sendo, esta primeira parte é, na verdade, resolvida através da função \text{\ttfamily multiProd~\char46{}~map~\char40{}pmatchResult~criteria\char41{}}.
@@ -2155,32 +2139,22 @@ A segunda parte consiste em, sabendo os resultados dos jogos, determinar os venc
 
 De forma a combinar estas duas partes, utiliza-se o operador \text{\ttfamily \char62{}\char62{}\char61{}} de Haskell, para passar o resultado da primeira para a segunda. Assim sendo, o resultado é
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pgroupWinners}\;\Varid{criteria}\mathrel{=}(\bind \Varid{return}\comp \Varid{best}\;\mathrm{2}\comp \Varid{consolidate}\comp \Varid{concat})\comp \Varid{multiProd}\comp \map \;(\Varid{pmatchResult}\;\Varid{criteria}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
+%\end{code}
 
 Finalmente, consideremos a função \text{\ttfamily pmatchResult}, que deve, para um dado encontro e uma função de probabilidade, retornar a probabilidade de cada resultado - sob a forma de pontuação de cada equipa. O primeiro passo é, naturalmente, aplicar a função de probabilidade ao encontro em questão. De seguida, deve converter-se em resultado em pontuações para cada equipa - que é o que faz a função \text{\ttfamily matchResult}. Assim sendo, esta função pode ser escrita, \textit{pointwise}, da seguinte forma:
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\;\Varid{m}\mathrel{=}\Varid{criteria}\;\Varid{m}\bind (\Varid{return}\comp \Varid{matchResults}\;\Varid{m}){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%pmatchResult criteria m = criteria m >>= (return . matchResults m)
+%\end{code}
 
 Convertendo esta função para uma definição \textit{pointfree} temos
 
-\begin{hscode}\SaveRestoreHook
-\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
-\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
-\>[B]{}\Varid{pmatchResult}\;\Varid{criteria}\mathrel{=}\uncurry{(\bind )}\comp \conj{\Varid{criteria}}{\Varid{return}\mathbin{`\Varid{multiComp}`}\Varid{matchResults}}{}\<[E]%
-\\
-\>[B]{}\Varid{multiComp}\mathrel{=}(\comp )\comp (\comp ){}\<[E]%
-\ColumnHook
-\end{hscode}\resethooks
+%\begin{code}
+%pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)
+%multiComp = (.) . (.)
+%\end{code}
 
 %----------------- Índice remissivo (exige makeindex) -------------------------%
 

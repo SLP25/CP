@@ -17,8 +17,6 @@
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{6}
 \indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{7}
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{7}
-\indexentry{Função!\emph  {map}|hyperpage}{7}
-\indexentry{Função!\emph  {map}|hyperpage}{8}
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{8}
 \indexentry{Functor|hyperpage}{8}
 \indexentry{Functor|hyperpage}{8}
@@ -61,25 +59,22 @@
 \indexentry{Functor|hyperpage}{12}
 \indexentry{Functor|hyperpage}{12}
 \indexentry{Functor|hyperpage}{12}
-\indexentry{Função!\emph  {map}|hyperpage}{12}
-\indexentry{Função!\emph  {map}|hyperpage}{12}
 \indexentry{Cálculo de Programas!Material Pedagógico!Exp.hs|hyperpage}{12}
 \indexentry{Função!\emph  {length}|hyperpage}{12}
 \indexentry{Função!\emph  {length}|hyperpage}{12}
 \indexentry{Haskell!Biblioteca!Probability|hyperpage}{12}
 \indexentry{Haskell!Biblioteca!PFP|hyperpage}{12}
 \indexentry{SVG (Scalable Vector Graphics)|hyperpage}{13}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
 \indexentry{Função!$\pi _2$|hyperpage}{14}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
 \indexentry{Função!$\pi _2$|hyperpage}{14}
 \indexentry{Functor|hyperpage}{14}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
 \indexentry{Função!$\pi _1$|hyperpage}{14}
 \indexentry{Função!$\pi _2$|hyperpage}{14}
-\indexentry{Função!\emph  {map}|hyperpage}{14}
+\indexentry{Função!$\pi _2$|hyperpage}{15}
+\indexentry{Função!$\pi _1$|hyperpage}{15}
+\indexentry{Função!$\pi _1$|hyperpage}{15}
+\indexentry{Função!$\pi _1$|hyperpage}{15}
+\indexentry{Função!$\pi _2$|hyperpage}{15}
 \indexentry{Função!$\pi _2$|hyperpage}{16}
 \indexentry{Função!$\pi _1$|hyperpage}{16}
 \indexentry{Função!$\pi _1$|hyperpage}{16}
@@ -107,58 +102,25 @@
 \indexentry{Função!$\pi _1$|hyperpage}{16}
 \indexentry{Função!$\pi _1$|hyperpage}{16}
 \indexentry{Função!\emph  {for}|hyperpage}{16}
-\indexentry{Função!$\pi _2$|hyperpage}{16}
-\indexentry{Função!$\pi _2$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!\emph  {for}|hyperpage}{16}
-\indexentry{Função!$\pi _2$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!$\pi _1$|hyperpage}{16}
-\indexentry{Função!$\pi _2$|hyperpage}{16}
-\indexentry{Função!\emph  {map}|hyperpage}{17}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{18}
-\indexentry{Função!\emph  {map}|hyperpage}{18}
-\indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{18}
-\indexentry{Função!\emph  {map}|hyperpage}{18}
-\indexentry{Função!\emph  {map}|hyperpage}{18}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{19}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{17}
+\indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{17}
 \indexentry{Função!$\pi _1$|hyperpage}{19}
 \indexentry{Função!\emph  {uncurry}|hyperpage}{19}
 \indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
 \indexentry{Função!\emph  {uncurry}|hyperpage}{19}
 \indexentry{Função!$\pi _2$|hyperpage}{19}
-\indexentry{Função!\emph  {map}|hyperpage}{19}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{20}
-\indexentry{Função!$\pi _1$|hyperpage}{20}
-\indexentry{Função!\emph  {map}|hyperpage}{21}
-\indexentry{Função!\emph  {map}|hyperpage}{21}
-\indexentry{Função!\emph  {map}|hyperpage}{21}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{22}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{22}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{22}
-\indexentry{Função!$\pi _1$|hyperpage}{22}
-\indexentry{Função!$\pi _2$|hyperpage}{22}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{22}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{22}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{21}
+\indexentry{Combinador ``pointfree''!\emph  {either}|hyperpage}{21}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{21}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{21}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{21}
+\indexentry{Função!$\pi _1$|hyperpage}{21}
+\indexentry{Função!$\pi _2$|hyperpage}{21}
+\indexentry{Função!\emph  {uncurry}|hyperpage}{21}
+\indexentry{Função!\emph  {length}|hyperpage}{21}
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{22}
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{22}
 \indexentry{Cálculo de Programas!Material Pedagógico!LTree.hs|hyperpage}{22}
+\indexentry{Functor|hyperpage}{22}
+\indexentry{Functor|hyperpage}{22}
 \indexentry{Função!\emph  {uncurry}|hyperpage}{22}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{23}
-\indexentry{Functor|hyperpage}{23}
-\indexentry{Functor|hyperpage}{23}
-\indexentry{Função!\emph  {map}|hyperpage}{23}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{23}
-\indexentry{Função!\emph  {map}|hyperpage}{23}
-\indexentry{Função!\emph  {uncurry}|hyperpage}{23}
