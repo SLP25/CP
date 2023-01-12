@@ -2,7 +2,9 @@ import Cp
 import Svg hiding (dup)
 import Nat
 import Rose
+import List
 import Control.Concurrent
+import Control.Monad
 
 --------------------GIVEN CODE--------------------
 
@@ -55,12 +57,21 @@ gr2l :: (a, [[a]]) -> [a]
 gr2l = concat . cons . (singl >< id)
 
 carpets :: Int -> [[Square]]
-carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n-1]
+carpets = anaList gene
+    where gene = (id -|- split (sierpinski . (split (const defaultSquare) id)) id) . outNat
+--carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n-1]
 
 present :: [[Square]] -> IO [()]
-present = sequence . (map ((>> await) . drawSq))
+present = cataList gene
+    where gene = either (return . nil) (myLift cons . ((>> await) . drawSq >< id))
+--present = sequence . map ((>> await) . drawSq)
+
 
 --------------------AUX FUNCTIONS--------------------
+
+myLift :: Monad m => ((a, b) -> c) -> (m a, m b) -> m c
+myLift f = uncurry (liftM2 (curry (f . swap))) . swap
+--myLift f (a, b) = do {b' <- b;a' <- a;return (f (a', b'))}
 
 middleSquare :: Square -> Square
 middleSquare = (split ((uncurry addTup) . (id >< dup)) p2) . (id >< (/3))
