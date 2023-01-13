@@ -102,16 +102,18 @@ generateMatches = pairup
 gsCriteria :: Match -> Maybe Team
 gsCriteria = s . (split (id >< id) (rank >< rank))
     where s ((s1, s2), (r1, r2)) = let d = r1 - r2 in
-            if d > 0.5 then Just s1
-                       else if d < -0.5 then Just s2
+            if d > margin then Just s1
+                       else if d < -margin then Just s2
                                             else Nothing
+          margin = 0.5
 
 koCriteria :: Match -> Team
 koCriteria = s . (split (id >< id) (rank >< rank))
     where s ((s1, s2), (r1, r2)) = let d = r1 - r2 in
-            if d == 0 then s1
+            if d == 0 then tiebreaker (s1, s2)
                       else if d > 0 then s1
                                     else s2
+          tiebreaker = p1
 
 simulateGroupStage :: [[Match]] -> [[Team]]
 simulateGroupStage = map (groupWinners gsCriteria)
@@ -137,10 +139,14 @@ winner = wcup groups
 
 --------Probabilistic--------
 pgsCriteria :: Match -> Dist (Maybe Team)
-pgsCriteria = s . (split (id >< id) (rank >< rank))
-    where s ((s1, s2), (r1, r2)) = if abs (r1 - r2) > 0.5 then fmap Just (pkoCriteria (s1, s2))
-                                                          else f (s1, s2)
-          f = D . ((Nothing, 0.5):) . (map (Just >< (/2))) . unD . pkoCriteria
+pgsCriteria = s . split id (rank >< rank)
+    where s (m, (r1, r2)) = D $ ((Nothing, prob):) $ map (Just >< (* (1 - prob))) $ unD $ pkoCriteria m
+            where prob = tieProb $ abs (r1 - r2)
+                  tieProb :: Float -> Float
+                  tieProb x | x > 0.5   = 0
+                            | otherwise = 0.5
+                  --tieProb x | x > 0.5   = 0
+                  --          | otherwise = 0.75 - x
 
 pkoCriteria :: Match -> Dist Team
 pkoCriteria (e1, e2) = D [(e1, 1 - r2 / (r1 + r2)), (e2, 1 - r1 / (r1 + r2))]

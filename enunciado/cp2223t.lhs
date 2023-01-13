@@ -1260,11 +1260,11 @@ Desenhando o diagrama do anamorfismo:
           \ar[u]_-{|anaExp gene|}
 &
      |String| + |String| \times |String|^{*^{*}}
-          \ar[u]^{|id + (id >< (\map (anaExp gene)))|}
+          \ar[u]^{|id + (id >< (map (anaExp gene)))|}
 }
 \end{eqnarray*}
 
-A função \verb|gene| vai ser expressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\verb|out|) ao argumento da função, podemos definir o gene como uma soma de funções.
+A função \verb|gene| vai ser expressa em função do seu caso base e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\verb|out|) ao argumento da função, podemos definir o gene como uma soma de funções.
 
 O lado esquerdo da soma - correspondente ao caso de paragem - será a identidade. Isto porque, caso a lista seja singular, pretende devolver-se esse elemento, que será uma folha na árvore de expressão.
 
@@ -1621,6 +1621,50 @@ Convertendo esta função para uma definição \textit{pointfree} temos
 \verb|pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)|
 \verb|multiComp = (.) . (.)|
 %\end{code}
+
+\subsubsection*{Valorização: Critérios de Ranking}
+
+Como sugerido no enunciado, o grupo decidiu experimentar com as funções de critérios providenciadas: gsCriteria e koCriteria para a versão determinística e pgsCriteria e pkoCriteria para a versão probabilística.
+
+Na versão determinística, estas funções estão sob restrições bastante apertadas: na fase de grupos, em que o empate é um resultado admissível, queremos que as equipas empatem se o seu ranking for próximo o suficiente e, caso contrário, que a equipa com maior ranking ganhe. O único parâmetro que podemos ajustar é esta margem, a partir da qual o jogo resulta num empate:
+
+gsCriteria :: Match -> Maybe Team
+gsCriteria = s . (split (id >< id) (rank >< rank))
+    where s ((s1, s2), (r1, r2)) = let d = r1 - r2 in
+            if d > margin then Just s1
+                       else if d < -margin then Just s2
+                                            else Nothing
+          margin = 0.5
+          
+No código fornecido a margem é de 0.5. Experimentando diferentes valores não alterou o resultado do campeonato até ao valor 4, a partir do qual a França é vencedora. Este valor de margem elevado leva a que muitos jogos da fase de grupos resultem num empate, forçando a simulação a escolher arbitrariamente entre os elementos do grupo e eliminando as equipas com um ranking superior à França (Bélgica e Brazil).
+
+No koCriteria não são admitidos empates. Isto significa que a equipa vencedora será a equipa com maior ranking. No entanto, se ambas as equipas tiverem o mesmo ranking a equipa vencedora é escolhida arbitrariamente. No código fornecido é escolhida a primeira equipa do par.
+
+koCriteria :: Match -> Team
+koCriteria = s . (split (id >< id) (rank >< rank))
+    where s ((s1, s2), (r1, r2)) = let d = r1 - r2 in
+            if d == 0 then tiebreaker (s1, s2)
+                      else if d > 0 then s1
+                                    else s2
+          tiebreaker = p1
+
+Se se alterar esta escolha para a segunda equipa do par, o vencedor do inevitável jogo Brazil-Bélgica (as duas equipas com maior ranking) será a Bélgica, mudando o resultado da simulação.
+
+Na versão probabilística é possível alterar de forma significativa estas funções. Não foram realizados muitos testes com versões alternativas de pkoCriteria, embora tais formulações sejam definitivamente possíveis. Em vez disso, chamou a atenção do grupo a função pgsCriteria, cuja versão original utiliza um mecanismo parecido com a versão original determinística para determinar um empate. Caso as diferenças entre os rankings sejam superiores a 0.5, um empate é impossível e o cálculo do resultado do jogo é delegado à função pkoCriteria. Caso contrário, um empate tem probabilidade de 50%, sendo que os restantes 50% são preenchidos com o resultado da função pkoCriteria. O grupo decidiu generalizar esta estrutura rígida com uma função tieProb, que dada a diferença dos rankings determina a probabilidade de um empate:
+
+pgsCriteria :: Match -> Dist (Maybe Team)
+pgsCriteria = s . split id (rank >< rank)
+    where s (m, (r1, r2)) = D $ ((Nothing, prob):) $ map (Just >< (* (1 - prob))) $ unD $ pkoCriteria m
+            where prob = tieProb $ abs (r1 - r2)
+                  tieProb x | x > 0.5   = 0
+                            | otherwise = 0.5
+
+Uma função tieProb alternativa seria, por exemplo, uma função linear entre 0 e 0.5, atribuindo 100% de probabilidade de empate caso os rankings sejam iguais e 0% caso a diferença seja maior a 0.5:
+
+tieProb x | x > 0.5   = 0
+          | otherwise = 1 - x
+
+Esta formulação altera ligeiramente as probabilidades do resultado final da simulaçlão, mas a ordem das 5 equipas com maior probabilidade de vencer mantém-se.
 
 %----------------- Índice remissivo (exige makeindex) -------------------------%
 
