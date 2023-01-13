@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  13 JAN 2023 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  13 JAN 2023 19:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1674,7 +1674,16 @@ Overfull \hbox (18.75186pt too wide) in paragraph at lines 2142--2145
 [][]
  []
 
-(./cp2223t.ind [23] [24
+\openout6 = `cp2223t.ptb'.
+
+[23]
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+\openout6 = `cp2223t.ptb'.
+
+ (./cp2223t.ind [24] [25
 
 
 ])
@@ -1687,10 +1696,10 @@ Package rerunfilecheck Info: File `cp2223t.out' has not changed.
 (rerunfilecheck)             Checksum: 198FBAC9DCE1E7BFD94A43BA0836654E;1628.
  ) 
 Here is how much of TeX's memory you used:
- 35518 strings out of 478238
- 671685 string characters out of 5850456
+ 35555 strings out of 478238
+ 672207 string characters out of 5850456
  1025520 words of memory out of 5000000
- 52976 multiletter control sequences out of 15000+600000
+ 53011 multiletter control sequences out of 15000+600000
  625899 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,21n,131p,3294b,1411s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1720,10 +1729,10 @@ b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
 /share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (24 pages, 766051 bytes).
+Output written on cp2223t.pdf (25 pages, 771233 bytes).
 PDF statistics:
- 528 PDF objects out of 1000 (max. 8388607)
- 418 compressed objects within 5 object streams
- 98 named destinations out of 1000 (max. 500000)
+ 534 PDF objects out of 1000 (max. 8388607)
+ 423 compressed objects within 5 object streams
+ 100 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1756,11 +1756,11 @@ Desenhando o diagrama do anamorfismo:
           \ar[u]_-{\ensuremath{\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}}}
 &
      \ensuremath{\Conid{String}} + \ensuremath{\Conid{String}} \times \ensuremath{\Conid{String}}^{*^{*}}
-          \ar[u]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\lambda \Varid{map}\;\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}))}}
+          \ar[u]^{\ensuremath{\Varid{id}\mathbin{+}(\Varid{id}\times(\Varid{map}\;\lanabracket\;\!\Varid{gene}\;\!\ranabracket_\textit{\tiny Exp}))}}
 }
 \end{eqnarray*}
 
-A função \text{\ttfamily gene} vai ser expressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\text{\ttfamily out}) ao argumento da função, podemos definir o gene como uma soma de funções.
+A função \text{\ttfamily gene} vai ser expressa em função do seu caso base e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\text{\ttfamily out}) ao argumento da função, podemos definir o gene como uma soma de funções.
 
 O lado esquerdo da soma - correspondente ao caso de paragem - será a identidade. Isto porque, caso a lista seja singular, pretende devolver-se esse elemento, que será uma folha na árvore de expressão.
 
@@ -2142,6 +2142,122 @@ Convertendo esta função para uma definição \textit{pointfree} temos
 \text{\ttfamily pmatchResult~criteria~\char61{}~uncurry~\char40{}\char62{}\char62{}\char61{}\char41{}~\char46{}~split~criteria~\char40{}return~\char96{}multiComp\char96{}~matchResults\char41{}}
 \text{\ttfamily multiComp~\char61{}~\char40{}\char46{}\char41{}~\char46{}~\char40{}\char46{}\char41{}}
 %\end{code}
+
+\subsubsection*{Valorização: Critérios de Ranking}
+
+Como sugerido no enunciado, o grupo decidiu experimentar com as funções de critérios providenciadas: \text{\ttfamily gsCriteria} e \text{\ttfamily koCriteria} para a versão determinística e \text{\ttfamily pgsCriteria} e \text{\ttfamily pkoCriteria} para a versão probabilística.
+
+Na versão determinística, estas funções estão sob restrições bastante apertadas: na fase de grupos, em que o empate é um resultado admissível, queremos que as equipas empatem se o seu ranking for próximo o suficiente e, caso contrário, que a equipa com maior ranking ganhe. O único parâmetro que podemos ajustar é esta margem, a partir da qual o jogo resulta num empate:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{11}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{13}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{24}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{45}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{gsCriteria'}\mathbin{::}\Conid{Match}\to \Conid{Maybe}\;\Conid{Team}{}\<[E]%
+\\
+\>[B]{}\Varid{gsCriteria'}\mathrel{=}\Varid{s}\comp \conj{\Varid{id}\times\Varid{id}}{\Varid{rank}\times\Varid{rank}}{}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}\mathbf{where}\;\Varid{s}\;((s_1 ,s_2 ),(r_1 ,r_2 ))\mathrel{=}\mathbf{let}\;\Varid{d}\mathrel{=}r_1 \mathbin{-}r_2 \;\mathbf{in}{}\<[E]%
+\\
+\>[5]{}\hsindent{8}{}\<[13]%
+\>[13]{}\mathbf{if}\;\Varid{d}\mathbin{>}\Varid{margin}\;\mathbf{then}\;\Conid{Just}\;s_1 {}\<[E]%
+\\
+\>[13]{}\hsindent{11}{}\<[24]%
+\>[24]{}\mathbf{else}\;\mathbf{if}\;\Varid{d}\mathbin{<}\mathbin{-}\Varid{margin}\;\mathbf{then}\;\Conid{Just}\;s_2 {}\<[E]%
+\\
+\>[24]{}\hsindent{21}{}\<[45]%
+\>[45]{}\mathbf{else}\;\Conid{Nothing}{}\<[E]%
+\\
+\>[5]{}\hsindent{6}{}\<[11]%
+\>[11]{}\Varid{margin}\mathrel{=}\mathrm{0.5}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+No código fornecido a margem é de $0.5$. Experimentando diferentes valores não alterou o resultado do campeonato até ao valor $4$, a partir do qual a França é vencedora. Este valor de margem elevado leva a que muitos jogos da fase de grupos resultem num empate, forçando a simulação a escolher arbitrariamente entre os elementos do grupo e eliminando as equipas com um ranking superior à França (Bélgica e Brazil).
+
+No \text{\ttfamily koCriteria} não são admitidos empates. Isto significa que a equipa vencedora será a equipa com maior ranking. No entanto, se ambas as equipas tiverem o mesmo ranking a equipa vencedora é escolhida arbitrariamente. No código fornecido é escolhida a primeira equipa do par.
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{11}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{13}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{23}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{37}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{koCriteria'}\mathbin{::}\Conid{Match}\to \Conid{Team}{}\<[E]%
+\\
+\>[B]{}\Varid{koCriteria'}\mathrel{=}\Varid{s}\comp \conj{\Varid{id}\times\Varid{id}}{\Varid{rank}\times\Varid{rank}}{}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}\mathbf{where}\;\Varid{s}\;((s_1 ,s_2 ),(r_1 ,r_2 ))\mathrel{=}\mathbf{let}\;\Varid{d}\mathrel{=}r_1 \mathbin{-}r_2 \;\mathbf{in}{}\<[E]%
+\\
+\>[5]{}\hsindent{8}{}\<[13]%
+\>[13]{}\mathbf{if}\;\Varid{d}\equiv \mathrm{0}\;\mathbf{then}\;\Varid{tiebreaker}\;(s_1 ,s_2 ){}\<[E]%
+\\
+\>[13]{}\hsindent{10}{}\<[23]%
+\>[23]{}\mathbf{else}\;\mathbf{if}\;\Varid{d}\mathbin{>}\mathrm{0}\;\mathbf{then}\;s_1 {}\<[E]%
+\\
+\>[23]{}\hsindent{14}{}\<[37]%
+\>[37]{}\mathbf{else}\;s_2 {}\<[E]%
+\\
+\>[5]{}\hsindent{6}{}\<[11]%
+\>[11]{}\Varid{tiebreaker}\mathrel{=}\p1{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Se se alterar esta escolha para a segunda equipa do par, o vencedor do inevitável jogo Brazil-Bélgica (as duas equipas com maior ranking) será a Bélgica, mudando o resultado da simulação.
+
+Na versão probabilística, é possível alterar de forma significativa estas funções. Não foram realizados muitos testes com versões alternativas de \text{\ttfamily pkoCriteria}, embora tais formulações sejam definitivamente possíveis. Em vez disso, chamou a atenção do grupo a função \text{\ttfamily pgsCriteria}, cuja versão original utiliza um mecanismo parecido com a versão original determinística para determinar um empate. Caso as diferenças entre os rankings sejam superiores a $0.5$, um empate é impossível e o cálculo do resultado do jogo é delegado à função \text{\ttfamily pkoCriteria}. Caso contrário, um empate tem probabilidade de 50\%, sendo que os restantes 50\% são preenchidos com o resultado da função pkoCriteria. O grupo decidiu generalizar esta estrutura rígida com uma função tieProb, que dada a diferença dos rankings determina a probabilidade de um empate:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{5}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{13}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{19}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{29}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{41}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{pgsCriteria'}\mathbin{::}\Conid{Match}\to \fun{Dist}\;(\Conid{Maybe}\;\Conid{Team}){}\<[E]%
+\\
+\>[B]{}\Varid{pgsCriteria'}\mathrel{=}\Varid{s}\comp \conj{\Varid{id}}{\Varid{rank}\times\Varid{rank}}{}\<[E]%
+\\
+\>[B]{}\hsindent{5}{}\<[5]%
+\>[5]{}\mathbf{where}\;\Varid{s}\;(\Varid{m},(r_1 ,r_2 ))\mathrel{=}\Conid{D}\mathbin{\$}((\Conid{Nothing},\Varid{prob})\mathbin{:})\mathbin{\$}\Varid{map}\;(\Conid{Just}\times(\mathbin{*}(\mathrm{1}\mathbin{-}\Varid{prob})))\mathbin{\$}\Varid{unD}\mathbin{\$}\Varid{pkoCriteria}\;\Varid{m}{}\<[E]%
+\\
+\>[5]{}\hsindent{8}{}\<[13]%
+\>[13]{}\mathbf{where}\;\Varid{prob}\mathrel{=}\Varid{tieProb}\mathbin{\$}\Varid{abs}\;(r_1 \mathbin{-}r_2 ){}\<[E]%
+\\
+\>[13]{}\hsindent{6}{}\<[19]%
+\>[19]{}\Varid{tieProb}\;\Varid{x}\mid \Varid{x}\mathbin{>}\mathrm{0.5}{}\<[41]%
+\>[41]{}\mathrel{=}\mathrm{0}{}\<[E]%
+\\
+\>[19]{}\hsindent{10}{}\<[29]%
+\>[29]{}\mid \Varid{otherwise}\mathrel{=}\mathrm{0.5}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Uma função tieProb alternativa seria, por exemplo, uma função linear entre 0 e 0.5, atribuindo 100\% de probabilidade de empate caso os rankings sejam iguais e 0\% caso a diferença seja maior a 0.5:
+
+\begin{hscode}\SaveRestoreHook
+\column{B}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{11}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{23}{@{}>{\hspre}l<{\hspost}@{}}%
+\column{E}{@{}>{\hspre}l<{\hspost}@{}}%
+\>[B]{}\Varid{tieProb}\;\Varid{x}\mid \Varid{x}\mathbin{>}\mathrm{0.5}{}\<[23]%
+\>[23]{}\mathrel{=}\mathrm{0}{}\<[E]%
+\\
+\>[B]{}\hsindent{11}{}\<[11]%
+\>[11]{}\mid \Varid{otherwise}\mathrel{=}\mathrm{1}\mathbin{-}\Varid{x}{}\<[E]%
+\ColumnHook
+\end{hscode}\resethooks
+
+Esta formulação altera ligeiramente as probabilidades do resultado final da simulaçlão, mas a ordem das 5 equipas com maior probabilidade de vencer mantém-se.
 
 %----------------- Índice remissivo (exige makeindex) -------------------------%
 
