@@ -1124,13 +1124,7 @@ initial = ((1,1), 0)
 wrap = p2
 \end{code}
 
-Por simplicidade, consideremos a função
-
-%\begin{code}
-%f'' = f a b c
-%\end{code} 
-
-como uma abreviatura da função original que se pretende otimizar. Consideremos, de igual modo, as seguintes funções
+Consideremos, de igual modo, as seguintes funções
 
 \begin{code}
 g' a b c n = f a b c (n + 1)
@@ -1206,15 +1200,9 @@ Estas três funções são mutuamente recursivas. Deste modo, tem-se que
 \qed
 \end{eqnarray*}
 
-Logo, conclui-se que
-
-%\begin{code}
-%f a b c = p2 . for (split (split (p2 . p1) (k a b c)) (p1 . p1)) (const (((1,1), 0)))
-%\end{code}
-
 \subsubsection*{Comparação de desempenho}
 
-Dadas estas duas implementações da mesma função, comparou-se o seu desempenho. Para isso, criou-se um \textit{Jupyter Notebook}, submitido juntamente com este relatório, que tratasse dessa mesma análise. Para medir o tempo de execução de cada função utilizou-se a biblioteca \href{https://hackage.haskell.org/package/criterion}{Criterion}; e para gerar os gráficos apresentados nas figuras \ref{fig:prob1_performance_poor} e \ref{fig:prob1_performance_good} usou-se a biblioteca \href{https://hackage.haskell.org/package/Chart}{Chart}.
+Dadas estas duas implementações da mesma função, comparou-se o seu desempenho. Para isso, criou-se um \textit{Jupyter Notebook}, submetido juntamente com este relatório, que tratasse dessa mesma análise. Para medir o tempo de execução de cada função utilizou-se a biblioteca \href{https://hackage.haskell.org/package/criterion}{Criterion}; e para gerar os gráficos apresentados nas figuras \ref{fig:prob1_performance_poor} e \ref{fig:prob1_performance_good} usou-se a biblioteca \href{https://hackage.haskell.org/package/Chart}{Chart}.
 
 Os tempos calculados correspondem à média de 10 execuções de cada função para o respetivo argumento. Para os testes, usou-se $a=2, b=3, c=4$.
 
@@ -1276,27 +1264,26 @@ Desenhando o diagrama do anamorfismo:
 }
 \end{eqnarray*}
 
-A função \verb|gene| vai ser espressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\verb|out|) ao argumento da função, podemos definir o gene como uma soma de funções.
+A função \verb|gene| vai ser expressa em função do seu caso de paragem e caso geral. De notar que, se aplicarmos o funtor das listas não vazias (\verb|out|) ao argumento da função, podemos definir o gene como uma soma de funções.
 
 O lado esquerdo da soma - correspondente ao caso de paragem - será a identidade. Isto porque, caso a lista seja singular, pretende devolver-se esse elemento, que será uma folha na árvore de expressão.
 
 O lado direito da soma é, como já tem sido hábito, bastante mais complexo. Como se deve tratar de uma função que recebe e devolve pares, vamos exprimi-la como um produto de outras duas funções. O fator do lado esquerdo deve ser, mais uma vez, a identidade, visto que se pretende preservar o elemento à cabeça da lista no nodo atual da árvore. O fator do lado direito deve ser uma função que, dada a cauda da lista, remova 4 espaços a todos os elementos (visto que estes elementos serão filhos na árvore, todos os elementos da lista serão \textit{strings} que começam com, pelo menos, 4 espaços), e parta a lista resultante por subárvores a explorar recursivamente. Como se faz esta divisão? Simplesmente parte-se a lista sempre que há um elemento que não está identado. Porquê nesses elementos? Porque esses elementos constituem as raízes das subárvores e, por isso, devem ser a cabeça das listas que serão recursivamente convertidas em árvores.
 
-Deste modo, começa-se por um \verb|map trim| à lista inicial. A função \verb|trim| remove os primeiro quatro espaços de uma \verb|string|. De seguida, essa função é composta com um \verb|groupBy (const canTrim)|\footnote{Dada a assinatura da função \verb|groupBy|, houve a necessidade de adicionar um primeiro argumento à função \verb|canTrim|, que deve ser ignorado pela mesma, daí a utilização da função \verb|const|}. A função \verb|groupBy| está definida no módulo de Haskell \verb|Data.List| e parte uma lista sempre que a função argumento seja verdadeiro, colocando o elemento para o qual isso aconteceu à cabeça de uma nova lista.
+Deste modo, começa-se por um \verb|map trim| à lista inicial. A função \verb|trim| remove os primeiros quatro espaços de uma \verb|string|. De seguida, essa função é composta com um \verb|groupBy (const canTrim)|\footnote{Dada a assinatura da função \verb|groupBy|, houve a necessidade de adicionar um primeiro argumento à função \verb|canTrim|, que deve ser ignorado pela mesma, daí a utilização da função \verb|const|}. A função \verb|groupBy| está definida no módulo de Haskell \verb|Data.List| e parte uma lista sempre que a função argumento seja verdadeiro, colocando o elemento para o qual isso aconteceu à cabeça de uma nova lista.
 
 Assim sendo, o gene do anamorfismo é definido por
 
 % \begin{code}
-% gene = ((id) -|- ( id >< ((groupBy (const canTrim)) . (map trim)))) . out
+\verb~gene = ((id) -|- ( id >< ((groupBy (const canTrim)) . (map trim)))) . out~
 % \end{code}
 
 com as seguintes funções auxiliares
 
 %\begin{code}
-%trim (' ':' ':' ':' ':r) = r
-%
-%canTrim (' ':' ':' ':' ':_) = True
-%canTrim _                   = False
+\verb|trim (' ':' ':' ':' ':r) = r|
+\verb|canTrim (' ':' ':' ':' ':_) = True|
+\verb|canTrim _                   = False|
 %\end{code}
 
 \subsubsection*{post}
@@ -1329,20 +1316,20 @@ Com isto, basta apenas definir o gene do catamorfismo. Tendo em conta o facto da
 No caso recursivo, recebe-se o elemento atual e o resultado das chamadas recursivas para os filhos. Aí, concatenam-se todos os resultados recursivos na mesma lista (para manter a noção de tabela) e, de seguida, adiciona-se o elemento à cabeça de cada uma dessas listas. Em notação \textit{pointwise}:
 
 %\begin{code}
-% map (s:) (concat l)
+\verb|map (s:) (concat l)|
 %\end{code}
 
 Passando para \textit{pointfree}:
 
 %\begin{code}
-% (uncurry map) . ((:) >< concat)
+\verb|(uncurry map) . ((:) >< concat)|
 %\end{code}
 
 Juntando tudo, temos a definição do gene e da função \verb|post|:
 
 %\begin{code}
-%post = cataExp g
-%g = either (singl . singl) ((uncurry    map) . ((:) >< concat))
+\verb|post = cataExp g|
+\verb|g = either (singl . singl) ((uncurry    map) . ((:) >< concat))|
 %\end{code}
 
 \subsection*{Problema 3}
@@ -1355,7 +1342,7 @@ rose2List = cataRose gr2l
 
 gr2l = concat . cons . (singl >< id)
 
-carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n]
+carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n-1]
 
 present = sequence . (map ((>> await) . drawSq))
 \end{code}
@@ -1366,7 +1353,7 @@ Funções auxiliares:
 
 middleSquare = (split ((uncurry addTup) . (id >< Cp.dup)) p2) . (id >< (/3))
 
-sideSquares (xy, l) = map (split ((addTup xy) . (scaleTup l')) (const l')) [(1,2),(2,2),(2,1),(2,0),(1,0),(0,0),(0,1),(0,2)]
+sideSquares (xy, l) = [(addTup xy $ scaleTup l' (x,y), l') | x <- [0..2], y <- [0..2], (x,y) /= (1,1)]
     where l' = l / 3
 
 addTup (a,b) (c,d) = (a + c, b + d)
@@ -1401,7 +1388,7 @@ Com isto, determina-se o tipo de \verb|gsq|. O primeiro elemento do par correspo
 Isto motiva a utilização do funtor dos naturais. Isso justifica o primeiro elemento da composição de funções que é a função \verb|gsq|:
 
 %\begin{code}
-% (id >< outNat)
+\verb|(id >< outNat)|
 %\end{code}
 
 Com isto, preserva-se o quadrado, mas diminui-se o natural numa unidade, possibilitando também a utilização de um \verb|either| para separar o caso de paragem dos restantes casos.
@@ -1415,10 +1402,10 @@ O segundo caso é bastante mais complicado, e, também por isso, mais interessan
 Sumariando, pretende-se pegar no par quadrado / número, calcular todos os subquadrados, e, em paralelo repetir o valor inteiro, juntando no fim essas listas. Isso é expresso pela expressão
 
 %\begin{code}
-% (uncurry zip) . (sideSquares >< repeat)
+\verb|(uncurry zip) . (sideSquares >< repeat)|
 %\end{code}.
 
-Passemos, agora, para o lado esquerdo do \verb|split|, que devolve o quadrado que não será mais dividido. Este é bastante simples, basta extrair o primeiro elemento do par (o quadrado), e aplicar-lhe a função auxiliar \verb|middleSquare|, que calcular o quadrado que deve ficar \textit{no meio}. Assim sendo, o lado esquerdo corresponde a 
+Passemos, agora, para o lado esquerdo do \verb|split|, que devolve o quadrado que não será mais dividido. Este é bastante simples, basta extrair o primeiro elemento do par (o quadrado), e aplicar-lhe a função auxiliar \verb|middleSquare|, que calcular o quadrado que deve ficar \textit{no meio}. Assim sendo, o lado esquerdo corresponde a \verb|(middleSquare . p1)|.
 
 %\begin{code}
 % (middleSquare . p1)
@@ -1443,16 +1430,16 @@ Consideremos o diagrama do catamorfismo \verb|rose2List|:
 }
 \end{eqnarray*}
 
-Derivamos, deste modo, o tipo da função \verb|gr2l| pretendida. O que se pretende é que esta função concatene toda as listas que recebe como argumento no segundo elemento do par, e que adicione o elemento que recebe como primeiro elemento do par à cabeça da lista. 
+Derivamos, deste modo, o tipo da função \verb|gr2l| pretendida. O que se pretende é que esta função concatene todas as listas que recebe como argumento no segundo elemento do par, e que adicione o elemento que recebe como primeiro elemento do par à cabeça da lista.
 
-A solução concebida foi a seguinte: colocar o primeiro elemento como uma lista e juntá-lo à cabeça da lista de listas recebida como segundo argumento, e, de seguida, concatenar as listas interiores para formar uma só lista. 
+A solução concebida foi a seguinte: colocar o primeiro elemento como uma lista e juntá-lo à cabeça da lista de listas recebida como segundo argumento, e, de seguida, concatenar as listas interiores para formar uma só lista.
 
-Este último passo é efetuado trivialmente pela função \verb|concat|. O passo anterior recorre à função \verb|cons|, que pega num par do tipo \verb|(a,[a])| e devolve uma lista em que o primeiro elemento foi acrescentado à lista. Para, neste caso, conseguir aplicar essa função, é necessário que o primeiro elemento do par seja, também ele, uma lista. Para isso usa-se a função \verb|singl| multiplicada com a identidade. 
+Este último passo é efetuado trivialmente pela função \verb|concat|. O passo anterior recorre à função \verb|cons|, que pega num par do tipo \verb|(a,[a])| e devolve uma lista em que o primeiro elemento foi acrescentado à lista. Para, neste caso, conseguir aplicar essa função, é necessário que o primeiro elemento do par seja, também ele, uma lista. Para isso usa-se a função \verb|singl| multiplicada com a identidade.
 
 Assim sendo, a função \verb|gr2l| é a composição de todas estas funções:
 
 %\begin{code}
-%gr2l = concat . cons . (singl >< id)
+\verb|gr2l = concat . cons . (singl >< id)|
 %\end{code}
 
 \subsubsection*{carpets}
@@ -1461,18 +1448,18 @@ Esta função deve receber um inteiro e devolver uma lista contendo os diferente
 
 Para isso, pode-se aproveitar a função \verb|sierpinski|, que recebe um par quadrado/inteiro, que corresponde ao quadrado inicial e ao número de iterações do algoritmo, respetivamente; e devolve os quadrados gerados.
 
-Pretende aplicar-se, então, a função \verb|sierpinski| com todos os limites de profundidade de 0 a $n$ (em que $n$ é o parâmetro de \verb|carpets|). Isso motiva a aplicar um \verb|map| da função \verb|sierpinski| à lista \verb|[0..n]|:
+Pretende aplicar-se, então, a função \verb|sierpinski| com todos os limites de profundidade de 0 a $n - 1$ (inclusivé) (em que $n$ é o parâmetro de \verb|carpets|). Isso motiva a aplicação de um \verb|map| da função \verb|sierpinski| à lista \verb|[0..n - 1]|: .
 
 %\begin{code}
-%carpets n = map (sierpinski . something) [0..n]
+\verb|carpets n = map (sierpinski . ??) [0..n]|
 %\end{code}
 
 No entanto, não é possível aplicar a função \verb|sierpinski| a um inteiro. De facto, a função, como referido anteriormente, recebe um par. Esse inteiro deve ser passado à função como segundo elemento do par, sendo que o primeiro elemento é independente desse valor, sendo sempre o mesmo (expresso pela função \verb|defaultSquare|). Isto motiva a utilização de um \verb|split|, em que do lado direito se aplica a função identidade, e do lado esquerdo a constante \verb|defaultSquare|.
 
-Assim chega-se à definição final de \verb|carpets|:
+Assim chega-se à definição final de \verb|carpets|.
 
 %\begin{code}
-%carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n]
+\verb|carpets n = map (sierpinski . (split (const defaultSquare) id)) [0..n-1]|
 %\end{code}
 
 \subsubsection*{present}
@@ -1482,12 +1469,12 @@ Finalmente, esta função deve receber uma lista como aquela devolvida pela fun�
 
 Esta função pode ser definida como um catamorfismo sobre listas. No entanto, o grupo desenvolveu uma solução mais simples recorrendo a um \verb|map|. O raciocínio é bastante semelhante: pretende-se desenhar os quadrados e esperar; para cada elemento da lista recebida. Para isso, pode-se executar um \verb|map| de uma função que faça o pretendido para cada elemento da lista. Mas como definir tal função? 
 
-O primeiro passo será sempre desenhar: por isso a função \verb|drawSq| será sempre a primeira a ser chamada. De seguida é preciso esperar, recorrendo-se à função \verb|>> await|. A combinação de \verb|await| com a função \verb|>>| de Haskell pode ser explicada pelo facto da função \verb|drawSq| retornar um tipo monádico que deve ser ignorado por \verb|await|. Compondo tudo:
+O primeiro passo será sempre desenhar: por isso a função \verb|drawSq| será sempre a primeira a ser chamada. De seguida é preciso esperar, recorrendo-se à função \verb|>> await|. A combinação de \verb|await| com a função \verb|>>| de Haskell pode ser explicada pelo facto da função \verb|drawSq| retornar um tipo monádico que deve ser ignorado por \verb|await|.
 
-No entanto, o tipo de retorno desta solução é \verb|[IO ()]| e não \verb|IO [()]|. Para resolver este problema, basta adicionar uma chamada à função \verb|sequence|, que transforma uma lista de monades num monade de listas. Combinando tudo:
+No entanto, o tipo de retorno desta solução é \verb|[IO ()]| e não \verb|IO [()]|. Para resolver este problema, basta adicionar uma chamada à função \verb|sequence|, que transforma uma lista de monades num mónade de listas.
 
 %\begin{code}
-%present = sequence . (map ((>> await) . drawSq))
+\verb|present = sequence . (map ((>> await) . drawSq))|
 %\end{code}
 
 
@@ -1545,7 +1532,7 @@ A função \verb|matchResult| deve, dada uma função que devolve o resultado de
 
 Inicialmente, partiu-se o problema em duas partes mais pequenas. A primeira consiste em calcular, dados um jogo e o seu resultado, as pontuações de cada equipa; o que deu origem à função \verb|matchResults|. A segunda parte consiste em calcular o resultado do jogo, e preparar essa informação para ser consumida pela função anterior.
 
-A função \verb|matchResults| é do tipo \verb|Match -> Maybe Team -> [(Team, Int)]|. Em primeiro lugar, esta função vai ser \textit{uncurried} para receber um par. Em segundo lugar, para obter os dados para esta função, basta aplicar um \verb|split| (visto tratar-se de uma função que recebe um par), em que uma das funções é a identidade (porque pretendemos passar o jogo que recebemos, sem modificações), e a outra é a função que calcula o resultado do jogo, que foi recebida como argumento (\verb|f|). Assim sendo, a função \verb|matchResult| é definida por
+A função \verb|matchResults| é do tipo \verb|Match -> Maybe Team -> [(Team, Int)]|. Em primeiro lugar, esta função vai ser \textit{uncurried} para receber um par. Em segundo lugar, para obter os dados para esta função, basta aplicar um \verb|split| (visto tratar-se de uma função que recebe um par), em que uma das funções é a identidade (porque pretendemos passar o jogo que recebemos, sem modificações), e a outra é a função que calcula o resultado do jogo, que foi recebida como argumento (\verb|f|).
 
 %\begin{code}
 %matchResult f = uncurry matchResults . split id f
@@ -1584,13 +1571,13 @@ Após aplicar o funtor, é necessário definir ambos os casos da soma. Caso a li
 Assim sendo, o lado direito da soma é
 
 %\begin{code}
-%(splitInHalf . (uncurry (:)))
+\verb|(splitInHalf . (uncurry (:)))|
 %\end{code}
 
-e o gene \verb|glt|
+e o gene 
 
 %\begin{code}
-%glt = (id -|- (splitInHalf . (uncurry (:)))) . out
+\verb<glt = (id -|- (splitInHalf . (uncurry (:)))) . out<
 %\end{code}
 
 \subsubsection*{Versão probabilística}
@@ -1605,7 +1592,7 @@ pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` match
 multiComp = (.) . (.)
 \end{code}
 
-A definição da função \verb|pinitKnockoutStage| é trivial quando feita à custa da função \verb|initKnockoutStage|. De facto, a \verb|pinitKnockoutStage| não depende em nada de probabilidades; a única diferença em relação à sua variante não monádica é o facto de ter de retornar um valor no monáde das probabilidades. Assim sendo, basta utilizar a função \verb|return| do monáde após aplicar a \verb|initKnockoutStage| original; ficando assim definida como
+A definição da função \verb|pinitKnockoutStage| é trivial quando feita à custa de  \verb|initKnockoutStage|. De facto, a \verb|pinitKnockoutStage| não depende em nada de probabilidades; a única diferença em relação à sua variante não monádica é o facto de ter de retornar um valor no monáde das probabilidades. Assim sendo, basta utilizar a função \verb|return| do monáde após aplicar a \verb|initKnockoutStage| original; ficando assim definida como \verb|pinitKnockoutStage = return . initKnockoutStage|.
 
 %\begin{code}
 %pinitKnockoutStage = return . initKnockoutStage
@@ -1614,9 +1601,9 @@ A definição da função \verb|pinitKnockoutStage| é trivial quando feita à c
 
 Comecemos por derivar a definição da função \verb|pgroupWinners|. O problema foi dividido em duas partes. A primeira consiste em obter a distribuição de probabilidade de cada conjunto de resultados dos jogos do grupo. Para fazer isso, aplica-se a função \verb|pmatchResult criteria| a todos os elementos da lista de jogos. Ou seja, a primeira parte do problema consiste na função \verb|map (pmatchResult criteria)|. Para converter os resultados de uma lista de monádes para um monáde de lista, usa-se a função \verb|multiProd|. Assim sendo, esta primeira parte é, na verdade, resolvida através da função \verb|multiProd . map (pmatchResult criteria)|.
 
-A segunda parte consiste em, sabendo os resultados dos jogos, determinar os vencedores do grupo. Para isso, é necessário juntar as listas correspondentes a cada jogo numa só - usando, para isso, a função \verb|concat| - e consolidar (\verb|consolidate|) a lista, de forma a ficar com a pontuação de cada equipa. Finalmente, é necessário retornar os 2 melhores, utilizando, para isso, a função \verb|best 2|. Como estamos a trabalhar num contexto monádico, é necessário utilizar a função \verb|return| do monáde das distribuições de probabilidade para \textit{colocar} o resultado dentro desse monáde.
+A segunda parte consiste em, sabendo os resultados dos jogos, determinar os vencedores do grupo. Para isso, é necessário juntar as listas correspondentes a cada jogo numa só - usando, para isso, a função \verb|concat| - e consolidar (\verb|consolidate|) a lista, de forma a ficar com a pontuação de cada equipa. Finalmente, é necessário retornar os 2 melhores, utilizando, para isso, a função \verb|best 2|. Como estamos a trabalhar num contexto monádico, é necessário utilizar a função \verb|return| do monáde das distribuições de probabilidade para \textit{colocar} o resultado dentro desse mónade.
 
-De forma a combinar estas duas partes, utiliza-se o operador \verb|>>=| de Haskell, para passar o resultado da primeira para a segunda. Assim sendo, o resultado é
+De forma a combinar estas duas partes, utiliza-se o operador \verb|>>=| de Haskell, para passar o resultado da primeira para a segunda. Assim sendo, o resultado é o descrito acima.
 
 %\begin{code}
 %pgroupWinners criteria = (>>= return . best 2 . consolidate . concat) . multiProd . map (pmatchResult criteria)
@@ -1625,14 +1612,14 @@ De forma a combinar estas duas partes, utiliza-se o operador \verb|>>=| de Haske
 Finalmente, consideremos a função \verb|pmatchResult|, que deve, para um dado encontro e uma função de probabilidade, retornar a probabilidade de cada resultado - sob a forma de pontuação de cada equipa. O primeiro passo é, naturalmente, aplicar a função de probabilidade ao encontro em questão. De seguida, deve converter-se em resultado em pontuações para cada equipa - que é o que faz a função \verb|matchResult|. Assim sendo, esta função pode ser escrita, \textit{pointwise}, da seguinte forma:
 
 %\begin{code}
-%pmatchResult criteria m = criteria m >>= (return . matchResults m)
+\verb|pmatchResult criteria m = criteria m >>= (return . matchResults m)|
 %\end{code}
 
 Convertendo esta função para uma definição \textit{pointfree} temos
 
 %\begin{code}
-%pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)
-%multiComp = (.) . (.)
+\verb|pmatchResult criteria = uncurry (>>=) . split criteria (return `multiComp` matchResults)|
+\verb|multiComp = (.) . (.)|
 %\end{code}
 
 %----------------- Índice remissivo (exige makeindex) -------------------------%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  12 JAN 2023 18:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.12.1)  13 JAN 2023 17:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1588,8 +1588,8 @@ LaTeX Warning: Citation `EK06' on page 12 undefined on input line 1234.
 <cp2223t_media/fIneficiente.png, id=271, 381.67593pt x 231.86626pt>
 File: cp2223t_media/fIneficiente.png Graphic file (type png)
 <use cp2223t_media/fIneficiente.png>
-Package pdftex.def Info: cp2223t_media/fIneficiente.png  used on input line 170
-7.
+Package pdftex.def Info: cp2223t_media/fIneficiente.png  used on input line 169
+5.
 (pdftex.def)             Requested size: 409.71692pt x 248.9117pt.
 
 
@@ -1598,7 +1598,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <cp2223t_media/fEficiente.png, id=272, 373.395pt x 237.88875pt>
 File: cp2223t_media/fEficiente.png Graphic file (type png)
 <use cp2223t_media/fEficiente.png>
-Package pdftex.def Info: cp2223t_media/fEficiente.png  used on input line 1714.
+Package pdftex.def Info: cp2223t_media/fEficiente.png  used on input line 1702.
 
 (pdftex.def)             Requested size: 409.71692pt x 261.03955pt.
 
@@ -1611,51 +1611,26 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [16]
 \openout6 = `cp2223t.ptb'.
 
- [17 <./cp2223t_media/fIneficiente.png (PNG copy)> <./cp2223t_media/fEficiente.
-png (PNG copy)>] <xymatrix 2x2
+ <xymatrix 2x2
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1772.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1760.
 
-191> <xymatrix 2x2
+191> [17 <./cp2223t_media/fIneficiente.png (PNG copy)> <./cp2223t_media/fEficie
+nte.png (PNG copy)>]
+Overfull \hbox (69.57545pt too wide) in paragraph at lines 1780--1784
+[][] [] [] 
+ []
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1817.
+<xymatrix 2x2
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1804.
 
 191> [18]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
 
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][] 
- []
-
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][] 
- []
-
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][][][] 
- []
-
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][] 
- []
-
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][] 
- []
-
-
-Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
- [][] 
- []
-
-<xymatrix 2x2 191> [19] <xymatrix 2x2 191> [20]
+ <xymatrix 2x2 191> [19] <xymatrix 2x2 191> [20]
 \openout6 = `cp2223t.ptb'.
 
 \openout6 = `cp2223t.ptb'.
@@ -1664,43 +1639,42 @@ Overfull \hbox (6.87672pt too wide) in paragraph at lines 1864--1881
 
  [21] <xymatrix 2x2
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 2094.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2081.
 
 188>
 \openout6 = `cp2223t.ptb'.
 
 
-Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2101--2114
  [][] 
  []
 
 
-Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2101--2114
  [][] 
  []
 
 
-Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2101--2114
  [][] 
  []
 
 
-Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2101--2114
  [][] 
  []
 
 
-Overfull \hbox (2.42618pt too wide) in paragraph at lines 2114--2127
+Overfull \hbox (2.42618pt too wide) in paragraph at lines 2101--2114
  [][] 
  []
 
-
-Overfull \hbox (12.84409pt too wide) in paragraph at lines 2129--2130
-[]\OT1/FiraSans-LF/book/n/10 A defini[][]ao da fun[][]ao [] []e tri-vial quando
- feita []a custa da fun[][]ao [].
+[22]
+Overfull \hbox (18.75186pt too wide) in paragraph at lines 2142--2145
+[][]
  []
 
-[22] (./cp2223t.ind [23] [24
+(./cp2223t.ind [23] [24
 
 
 ])
@@ -1746,7 +1720,7 @@ b></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb></usr/share/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
 /share/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on cp2223t.pdf (24 pages, 764677 bytes).
+Output written on cp2223t.pdf (24 pages, 766051 bytes).
 PDF statistics:
  528 PDF objects out of 1000 (max. 8388607)
  418 compressed objects within 5 object streams
